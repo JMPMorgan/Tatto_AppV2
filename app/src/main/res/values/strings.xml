@@ -1,3 +1,38 @@
 <resources>
-    <string name="app_name">Tatto  App</string>
+    <string name="app_name">TattoProjectApp</string>
+    <string name="home_menu">Home</string>
+    <string name="fav_menu">Favs</string>
+    <string name="message_menu">Messages</string>
+    <string name="account_menu">My Account</string>
+    <string name="posts_menu">My Posts</string>
+    <string name="name_str">Name</string>
+    <string name="lastname_str">Last Name</string>
+    <string name="username_str">Username</string>
+    <string name="birthday_str">Birthday</string>
+    <string name="passsword_str">Password</string>
+    <string name="cpassword_str">Confirm Your Pasword</string>
+    <string name="name_shop_str">Tatto Shop Name</string>
+    <string name="adress_shop_str">Adress Tatto Shop</string>
+    <string name="open_days_shop_str">Open Days</string>
+    <string name="open_time_shop_str">Opening Time</string>
+    <string name="close_time_shop_str">Closing Time</string>
+    <string name="publish_post_str">Publish</string>
+    <string name="description_post_str">Description</string>
+    <string name="email_str">E-mail</string>
+    <string name="btn_back">Back</string>
+    <string name="btn_loadimage">Load Image</string>
+    <string name="btn_login">Log In</string>
+    <string name="btn_logout">Log Out</string>
+    <string name="btn_createlocal">Create Local</string>
+    <string name="btn_signup">Sign In</string>
+    <string name="btn_sendcode">Send Code</string>
+    <string name="btn_editprofile">Edit Profile</string>
+    <string name="btn_sendmsg">Send</string>
+    <string name="btn_newpost">New Post</string>
+    <string name="btn_message">Message</string>
+
+    <string name="btn_forgetpassword">Forget Password?</string>
+    <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ac tellus ac quam varius vestibulum eu sed leo.</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

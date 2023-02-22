@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    android:id="@+id/local_info"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="411dp"
+        android:layout_height="wrap_content"
+        android:background="#D3ABFA"
+        android:padding="16dp">
+
+        <ImageView
+
+            android:id="@+id/imagePost"
+
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="16dp"
+
+            android:layout_marginRight="16dp" />
+
+        <TextView
+            android:id="@+id/title_local"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@+id/imagePost"
+            android:layout_toRightOf="@+id/imagePost"
+            android:text="Tatto Store"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+
+        <TextView
+            android:id="@+id/description_post"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/title_local"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="5dp"
+            android:layout_toEndOf="@+id/imagePost"
+            android:text="@string/lorem"
+            android:textColor="@color/black"
+            android:textStyle="normal" />
+
+
+    </RelativeLayout>
+</FrameLayout>
