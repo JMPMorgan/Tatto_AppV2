@@ -9,7 +9,7 @@ data class LocalResponse(
     @SerializedName("msg")
     var msg:String,
     @SerializedName("local")
-    var post: Local?=null,
-    @SerializedName("posts")
-    var posts:Array<Local> ?=null
+    var local: Local?=null,
+    @SerializedName("locals")
+    var locals:List<Local> ?=null
 )
