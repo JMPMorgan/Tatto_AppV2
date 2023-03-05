@@ -1,4 +1,4 @@
-package com.example.tattoapp.DataClasses
+package com.example.tattoapp.RecyclerViews.DataClasses
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
@@ -24,7 +24,7 @@ data class Local(
     var msg:String?=null,
     @SerializedName("local")
     @Expose
-    var local:Local?=null,
+    var local: Local?=null,
     @SerializedName("locals")
     var locals:List<Local>?=null
 )

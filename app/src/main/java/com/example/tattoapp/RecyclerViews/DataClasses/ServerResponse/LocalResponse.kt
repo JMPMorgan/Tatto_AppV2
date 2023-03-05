@@ -1,6 +1,6 @@
-package com.example.tattoapp.DataClasses.ServerResponse
+package com.example.tattoapp.RecyclerViews.DataClasses.ServerResponse
 
-import com.example.tattoapp.DataClasses.Local
+import com.example.tattoapp.RecyclerViews.DataClasses.Local
 import com.google.gson.annotations.SerializedName
 
 data class LocalResponse(

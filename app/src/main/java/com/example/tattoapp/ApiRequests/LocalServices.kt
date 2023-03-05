@@ -1,7 +1,7 @@
 package com.example.tattoapp.ApiRequests
 
-import com.example.tattoapp.DataClasses.Local
-import com.example.tattoapp.DataClasses.ServerResponse.LocalResponse
+import com.example.tattoapp.RecyclerViews.DataClasses.Local
+import com.example.tattoapp.RecyclerViews.DataClasses.ServerResponse.LocalResponse
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET

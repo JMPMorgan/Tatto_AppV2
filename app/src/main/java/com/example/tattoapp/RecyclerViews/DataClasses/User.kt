@@ -1,4 +1,4 @@
-package com.example.tattoapp.DataClasses
+package com.example.tattoapp.RecyclerViews.DataClasses
 
 import com.google.gson.annotations.SerializedName
 

@@ -1,6 +1,6 @@
-package com.example.tattoapp.DataClasses.ServerResponse
+package com.example.tattoapp.RecyclerViews.DataClasses.ServerResponse
 
-import com.example.tattoapp.DataClasses.User
+import com.example.tattoapp.RecyclerViews.DataClasses.User
 import com.google.gson.annotations.SerializedName
 
 data class UserResponse(
@@ -9,7 +9,7 @@ data class UserResponse(
     @SerializedName("msg")
     var msg:String,
     @SerializedName("user")
-    var user:User?=null,
+    var user: User?=null,
     @SerializedName("users")
     var users:Array<User>?=null
 )

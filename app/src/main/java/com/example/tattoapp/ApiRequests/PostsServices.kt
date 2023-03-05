@@ -1,7 +1,7 @@
 package com.example.tattoapp.ApiRequests
 
 import retrofit2.Call
-import com.example.tattoapp.DataClasses.ServerResponse.PostResponse
+import com.example.tattoapp.RecyclerViews.DataClasses.ServerResponse.PostResponse
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.POST
