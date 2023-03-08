@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
 //        val local= Local()
 
         supportFragmentManager.commit {
-            replace <LocalsFragment> (R.id.fragment_container)
+            replace  (R.id.fragment_container,<LocalsFragment>)
             setReorderingAllowed(true)
             addToBackStack("replacement")
         }
