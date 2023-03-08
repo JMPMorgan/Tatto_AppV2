@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.Settings.Global
 import android.util.Log
-import androidx.fragment.app.commit
+import androidx.fragment.app.*
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tattoapp.Fragments.LocalsFragment
 import com.example.tattoapp.Models.Local
@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
 //        val local= Local()
 
         supportFragmentManager.commit {
-            replace  (R.id.fragment_container,<LocalsFragment>)
+            replace<LocalsFragment> (R.id.fragment_container)
             setReorderingAllowed(true)
             addToBackStack("replacement")
         }
