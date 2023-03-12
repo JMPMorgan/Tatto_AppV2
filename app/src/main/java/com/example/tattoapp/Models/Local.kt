@@ -11,18 +11,17 @@ import retrofit2.*
 import com.example.tattoapp.RecyclerViews.DataClasses.Local as LocalData
 
 class Local {
-    private lateinit var  recyclerView: RecyclerView
-    private lateinit var adapter: LocalRecyclerView
+    var locals :List<LocalData> = listOf()
     private val localServices:LocalServices= ApiEngine.getApi().create(LocalServices::class.java)
-    public  fun loadLocals(context:Context,idRVLocal:RecyclerView) {
+    public  fun loadLocals(localRecyclerView: LocalRecyclerView) {
         val response:Call<LocalResponse> = this.localServices.getLocals()
         response.enqueue(object : Callback<LocalResponse>{
             override fun onResponse(call: Call<LocalResponse>, response: Response<LocalResponse>) {
-                val locals=response.body()?.locals!!
-                adapter= LocalRecyclerView(context,locals)
-                recyclerView=idRVLocal
-                recyclerView.layoutManager = LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false)
-                recyclerView.adapter=adapter
+                locals=response.body()?.locals!!
+//                Log.e("ADAPTEERRRR",adapter.toString())
+                localRecyclerView.add(locals)
+                Log.e("HOLA COMO ESTAS",locals.toString())
+
             }
 
             override fun onFailure(call: Call<LocalResponse>, t: Throwable) {
