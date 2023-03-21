@@ -11,5 +11,5 @@ data class UserResponse(
     @SerializedName("user")
     var user: User?=null,
     @SerializedName("users")
-    var users:Array<User>?=null
+    var users:List<User>?=null
 )

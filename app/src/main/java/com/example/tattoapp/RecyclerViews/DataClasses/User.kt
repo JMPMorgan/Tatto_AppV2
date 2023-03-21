@@ -1,6 +1,13 @@
 package com.example.tattoapp.RecyclerViews.DataClasses
 
+import android.util.Log
+import com.example.tattoapp.ApiRequests.LocalServices
+import com.example.tattoapp.ApiRequests.UserService
+import com.example.tattoapp.Models.ApiEngine
+import com.example.tattoapp.RecyclerViews.DataClasses.ServerResponse.UserResponse
 import com.google.gson.annotations.SerializedName
+import retrofit2.*
+
 
 data class User(
     @SerializedName("id", alternate = ["_id"])
@@ -23,4 +30,25 @@ data class User(
     var jwt:String?=null,
     @SerializedName("img")
     var file:String?=null
-)
+){
+
+    private val userServices: UserService = ApiEngine.getApi().create(UserService::class.java)
+    public fun createUser(){
+        val response:Call<UserResponse> =this.userServices.createNewUser(this)
+        response.enqueue(object :Callback<UserResponse>{
+            override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
+                TODO("Not yet implemented")
+            }
+
+            override fun onFailure(call: Call<UserResponse>, t: Throwable) {
+                TODO("Not yet implemented")
+            }
+        })
+    }
+
+    public  fun getUsers(): Call<UserResponse>  {
+        var users:List<User>;
+        val response: Call<UserResponse> = this.userServices.getUsers()
+        return response;
+    }
+}
