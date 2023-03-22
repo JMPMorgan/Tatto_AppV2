@@ -17,4 +17,8 @@ interface UserService {
     fun deleteUser(@Path("id")id:String): Call<UserResponse>
     @GET("/api/user/")
     fun getUsers(): Call<UserResponse>
+
+    @Headers("Content-Type: application/json")
+    @POST("/api/auth/login")
+    fun logInUser(@Body user:User):Call<UserResponse>
 }

@@ -33,21 +33,27 @@ data class User(
 ){
 
     private val userServices: UserService = ApiEngine.getApi().create(UserService::class.java)
-    public fun createUser(){
+    public fun createUser():Call<UserResponse>{
         val response:Call<UserResponse> =this.userServices.createNewUser(this)
-        response.enqueue(object :Callback<UserResponse>{
-            override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
-                TODO("Not yet implemented")
-            }
+//        response.enqueue(object :Callback<UserResponse>{
+//            override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
+//                TODO("Not yet implemented")
+//            }
+//
+//            override fun onFailure(call: Call<UserResponse>, t: Throwable) {
+//                TODO("Not yet implemented")
+//            }
+//        })
+        return response;
+    }
 
-            override fun onFailure(call: Call<UserResponse>, t: Throwable) {
-                TODO("Not yet implemented")
-            }
-        })
+    fun logIn():Call<UserResponse>{
+        val response:Call<UserResponse> =this.userServices.logInUser(this)
+        return response
     }
 
     public  fun getUsers(): Call<UserResponse>  {
-        var users:List<User>;
+//        var users:List<User>;
         val response: Call<UserResponse> = this.userServices.getUsers()
         return response;
     }

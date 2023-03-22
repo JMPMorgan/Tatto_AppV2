@@ -1,5 +1,6 @@
 package com.example.tattoapp.Fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -9,9 +10,11 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import com.example.tattoapp.LoginActivity
 import com.example.tattoapp.R
 import com.example.tattoapp.RecyclerViews.DataClasses.ServerResponse.UserResponse
 import com.example.tattoapp.RecyclerViews.DataClasses.User
+import com.example.tattoapp.SignUpActivity
 import org.w3c.dom.Text
 import retrofit2.Call
 import retrofit2.Callback
@@ -40,6 +43,8 @@ class ProfileFragment : Fragment() {
 //        }
 //    }
 
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -48,7 +53,9 @@ class ProfileFragment : Fragment() {
         binding=inflater.inflate(R.layout.fragment_profile,container,false)
         button=binding.findViewById(R.id.btnRegisterUser)
         button.setOnClickListener {
-            validateNewUser()
+            val launch = Intent(context,LoginActivity::class.java)
+            startActivity(launch)
+//            validateNewUser()
         }
         return binding.rootView
     }
