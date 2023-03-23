@@ -3,15 +3,18 @@
     <item
         android:id="@+id/LocalsFragmentOptions"
         android:icon="@drawable/home"
-        android:title="Home"></item>
-
-    <item
-        android:id="@+id/PruebaOptions"
-        android:icon="@drawable/home"
-        android:title="Home"></item>
+        android:title="Tiendas"/>
     <item
         android:id="@+id/PruebaOptions2"
-        android:icon="@drawable/home"
-        android:title="Home"></item>
+        android:icon="@drawable/ic_star"
+        android:title="Favoritos"/>
+    <item
+        android:id="@+id/messages"
+        android:icon="@drawable/ic_message"
+        android:title="Mensajes"/>
+    <item
+        android:id="@+id/PruebaOptions"
+        android:icon="@drawable/ic_account"
+        android:title="Account"/>
 
 </menu>

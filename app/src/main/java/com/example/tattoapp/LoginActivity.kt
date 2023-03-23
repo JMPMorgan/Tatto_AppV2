@@ -9,6 +9,7 @@ import android.widget.EditText
 import android.widget.Toast
 import com.example.tattoapp.RecyclerViews.DataClasses.ServerResponse.UserResponse
 import com.example.tattoapp.RecyclerViews.DataClasses.User
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -35,10 +36,12 @@ class LoginActivity : AppCompatActivity() {
 
         if(email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()){
             this.showToast("El campo Email es requerido y debe ser un email valido")
+            return;
         }
 
         if(password.isEmpty()){
             this.showToast("El campo Password es requerido")
+            return;
         }
         val user=User(null,null,null,email,password,null,null,null,null,null)
 
@@ -46,9 +49,15 @@ class LoginActivity : AppCompatActivity() {
 
         logIn.enqueue(object : Callback<UserResponse> {
             override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
-//                 users= response.body()?.users!!
-                Log.e("USERS",response.body().toString())
-                Log.e("USER",response.body().toString())
+                Log.e("Prueba",response.toString())
+                if(!response.isSuccessful){
+                    val jsonObject = response.errorBody()?.string()?.let { JSONObject(it) };
+                    val msgError= jsonObject?.getString("msg").toString();
+                    showToast(msgError)
+                    return;
+                }
+                // TODO("Falta Guardar los mensajes en la BD de la APP")
+
             }
 
             override fun onFailure(call: Call<UserResponse>, t: Throwable) {

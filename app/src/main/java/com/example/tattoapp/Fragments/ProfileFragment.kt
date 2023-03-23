@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import com.example.tattoapp.LoginActivity
@@ -15,61 +16,67 @@ import com.example.tattoapp.R
 import com.example.tattoapp.RecyclerViews.DataClasses.ServerResponse.UserResponse
 import com.example.tattoapp.RecyclerViews.DataClasses.User
 import com.example.tattoapp.SignUpActivity
+import com.squareup.picasso.Picasso
+import org.json.JSONObject
 import org.w3c.dom.Text
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [ProfileFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class ProfileFragment : Fragment() {
     private lateinit var  binding:View
-    private lateinit var button:Button
-
-
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//        arguments?.let {
-//            param1 = it.getString(ARG_PARAM1)
-//            param2 = it.getString(ARG_PARAM2)
-//        }
-//    }
-
-
-
+    private var user:User ?=null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
+        //TODO("Falta cargar la la BD interna para saber si ya hizo login")
+        //?Esto se tiene que quitar cuando este listo lo de la BD
+
         binding=inflater.inflate(R.layout.fragment_profile,container,false)
-        button=binding.findViewById(R.id.btnRegisterUser)
-        button.setOnClickListener {
-            val launch = Intent(context,LoginActivity::class.java)
-            startActivity(launch)
-//            validateNewUser()
-        }
+//        button=binding.findViewById(R.id.btnRegisterUser)
+//        button.setOnClickListener {
+//            val launch = Intent(context,LoginActivity::class.java)
+//            startActivity(launch)
+////            validateNewUser()
+//        }
         return binding.rootView
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        view.setOnClickListenerR)
-//       view.setOnClickListener{
-//           when(view.id){
-//               R.id.btnRegisterUser->{
-//                   Log.e("PREUBAAAAA","HOLA COMO ESTAS WUWU")
-//               }
-//           }
-//       }
+        loadInfoUser()
+    }
+
+    fun loadInfoUser(){
+        val userServices=User()
+        val response = userServices.getUser("641b619dac5f89b8ad46f7fa")
+        response.enqueue(
+            object : Callback<UserResponse> {
+                override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
+                    Log.e("Prueba",response.toString())
+                    Log.e("Prueba2",response.body().toString())
+                    if(!response.isSuccessful){
+                        val jsonObject = response.errorBody()?.string()?.let { JSONObject(it) };
+                        val msgError= jsonObject?.getString("msg").toString();
+                        showToast(msgError)
+                        return;
+                    }
+                    user=response.body()?.user
+                    val image=binding.findViewById<ImageView>(R.id.image_profile_fragment)
+
+                    Picasso.get()
+                        .load(user!!.file.toString())
+                        .into(image)
+                    // TODO("Falta Guardar los mensajes en la BD de la APP")
+
+                }
+
+                override fun onFailure(call: Call<UserResponse>, t: Throwable) {
+                    Log.e("Hola","Hola")
+                }
+            }
+        )
     }
 
     fun validateNewUser(){
@@ -128,6 +135,9 @@ class ProfileFragment : Fragment() {
              }
 
          })
+    }
+    fun showToast(text:String){
+        Toast.makeText(binding.context ,text, Toast.LENGTH_SHORT).show()
     }
 
 }

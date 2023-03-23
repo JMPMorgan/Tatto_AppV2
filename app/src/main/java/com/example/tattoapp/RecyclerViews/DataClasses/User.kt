@@ -57,4 +57,9 @@ data class User(
         val response: Call<UserResponse> = this.userServices.getUsers()
         return response;
     }
+
+    fun getUser(id:String):Call<UserResponse>{
+        return this.userServices.getUserInfo(id)
+
+    }
 }

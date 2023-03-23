@@ -6,6 +6,7 @@ import android.provider.Settings.Global
 import android.util.Log
 import androidx.fragment.app.*
 import androidx.recyclerview.widget.RecyclerView
+import com.example.tattoapp.Fragments.ChatsFragment
 import com.example.tattoapp.Fragments.LocalsFragment
 import com.example.tattoapp.Fragments.ProfileFragment
 import com.example.tattoapp.Fragments.SearchFragment
@@ -41,6 +42,14 @@ class MainActivity : AppCompatActivity() {
             R.id.PruebaOptions2->{
                 supportFragmentManager.commit {
                     replace<SearchFragment> (R.id.fragment_container)
+                    setReorderingAllowed(true)
+                    addToBackStack("replacement")
+                }
+                return@OnNavigationItemSelectedListener true
+            }
+            R.id.messages->{
+                supportFragmentManager.commit {
+                    replace<ChatsFragment> (R.id.fragment_container)
                     setReorderingAllowed(true)
                     addToBackStack("replacement")
                 }
