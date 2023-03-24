@@ -34,12 +34,12 @@ class ProfileFragment : Fragment() {
         //?Esto se tiene que quitar cuando este listo lo de la BD
 
         binding=inflater.inflate(R.layout.fragment_profile,container,false)
-//        button=binding.findViewById(R.id.btnRegisterUser)
-//        button.setOnClickListener {
-//            val launch = Intent(context,LoginActivity::class.java)
-//            startActivity(launch)
-////            validateNewUser()
-//        }
+        val button=binding.findViewById<Button>(R.id.btnRegisterUser)
+        button.setOnClickListener {
+            val launch = Intent(context,LoginActivity::class.java)
+            startActivity(launch)
+//            validateNewUser()
+        }
         return binding.rootView
     }
 

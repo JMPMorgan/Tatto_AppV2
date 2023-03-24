@@ -7,6 +7,7 @@ import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import com.example.tattoapp.DB.SQLUser
 import com.example.tattoapp.RecyclerViews.DataClasses.ServerResponse.UserResponse
 import com.example.tattoapp.RecyclerViews.DataClasses.User
 import org.json.JSONObject
@@ -49,13 +50,20 @@ class LoginActivity : AppCompatActivity() {
 
         logIn.enqueue(object : Callback<UserResponse> {
             override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
-                Log.e("Prueba",response.toString())
                 if(!response.isSuccessful){
                     val jsonObject = response.errorBody()?.string()?.let { JSONObject(it) };
                     val msgError= jsonObject?.getString("msg").toString();
                     showToast(msgError)
                     return;
                 }
+                val user =response.body()?.user
+                val userDataSQL=SQLUser(this@LoginActivity)
+                val data = userDataSQL.getInformation()
+                if(data.isEmpty()){
+                    userDataSQL.newUser(user?.name.toString(),user?.lastname.toString(),user?.username.toString(),user?.birthday.toString(),user?.email.toString(),user?.userid.toString(),user?.password.toString())
+                }
+                Log.e("USUARIO",user.toString())
+                Log.e("USUARIO SQL UWU",data.toString())
                 // TODO("Falta Guardar los mensajes en la BD de la APP")
 
             }
