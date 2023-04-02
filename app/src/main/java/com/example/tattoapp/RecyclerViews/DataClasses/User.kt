@@ -29,7 +29,9 @@ data class User(
     @SerializedName("token")
     var jwt:String?=null,
     @SerializedName("img")
-    var file:String?=null
+    var file:String?=null,
+    @SerializedName("hasLocal")
+    var hasLocal:Boolean=false
 ){
 
     private val userServices: UserService = ApiEngine.getApi().create(UserService::class.java)

@@ -26,6 +26,7 @@ import retrofit2.Response
 class ProfileFragment : Fragment() {
     private lateinit var  binding:View
     private var user:User ?=null
+    private var hasConexion:Boolean=true
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -63,6 +64,7 @@ class ProfileFragment : Fragment() {
                         return;
                     }
                     user=response.body()?.user
+
                     val image=binding.findViewById<ImageView>(R.id.image_profile_fragment)
 
                     Picasso.get()
@@ -70,10 +72,18 @@ class ProfileFragment : Fragment() {
                         .into(image)
                     // TODO("Falta Guardar los mensajes en la BD de la APP")
 
+                    if(user!!.hasLocal){
+                        val btnCreateLocal=binding.findViewById<Button>(R.id.btnCreateLocal)
+                        Log.e("Hola","Hola")
+                        btnCreateLocal.visibility=View.GONE
+                    }
+
                 }
 
                 override fun onFailure(call: Call<UserResponse>, t: Throwable) {
                     Log.e("Hola","Hola")
+                    hasConexion=false
+
                 }
             }
         )
