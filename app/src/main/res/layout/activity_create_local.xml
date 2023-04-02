@@ -37,7 +37,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="36dp"
-        android:text="@string/email_str"
+        android:text="Local Name"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/inputLocal" />
 
@@ -50,7 +50,7 @@
         android:layout_marginTop="20dp"
         android:background="@drawable/input_main"
         android:ems="10"
-        android:inputType="textEmailAddress"
+        android:inputType="text"
         android:paddingStart="4dp"
         android:paddingEnd="4dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -61,7 +61,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="36dp"
-        android:text="@string/email_str"
+        android:text="Schedule"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/inputSchedule" />
 
@@ -84,7 +84,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="36dp"
-        android:text="@string/email_str"
+        android:text="Weekdays"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/inputWeekdays" />
 
@@ -107,7 +107,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="36dp"
-        android:text="@string/email_str"
+        android:text="Local Image"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/inputImgLocal" />
 
