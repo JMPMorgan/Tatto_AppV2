@@ -11,6 +11,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import com.example.tattoapp.CreateLocalActivity
 import com.example.tattoapp.LoginActivity
 import com.example.tattoapp.R
 import com.example.tattoapp.RecyclerViews.DataClasses.ServerResponse.UserResponse
@@ -36,11 +37,18 @@ class ProfileFragment : Fragment() {
 
         binding=inflater.inflate(R.layout.fragment_profile,container,false)
         val button=binding.findViewById<Button>(R.id.btnRegisterUser)
+        val btnCreateLocal = binding.findViewById<Button>(R.id.btnCreateLocal)
         button.setOnClickListener {
             val launch = Intent(context,LoginActivity::class.java)
             startActivity(launch)
 //            validateNewUser()
         }
+
+        btnCreateLocal.setOnClickListener {
+            val launch=Intent(context,CreateLocalActivity::class.java)
+            startActivity(launch)
+        }
+
         return binding.rootView
     }
 

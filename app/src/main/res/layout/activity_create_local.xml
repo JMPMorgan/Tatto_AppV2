@@ -9,7 +9,7 @@
 
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/imageViewLocal"
         android:layout_width="185dp"
         android:layout_height="175dp"
         android:layout_marginStart="112dp"
@@ -30,7 +30,7 @@
         android:paddingStart="4dp"
         android:paddingEnd="4dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/imageViewLocal" />
 
     <TextView
         android:id="@+id/txt_email"
@@ -88,8 +88,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/inputWeekdays" />
 
+
     <EditText
-        android:id="@+id/inputImgLocal"
+        android:id="@+id/inputLocation"
         android:layout_width="328dp"
         android:layout_height="45dp"
         android:layout_marginStart="40dp"
@@ -103,14 +104,37 @@
         app:layout_constraintTop_toBottomOf="@+id/inputWeekdays" />
 
     <TextView
-        android:id="@+id/txt_imglocal"
+        android:id="@+id/txt_location"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="36dp"
+        android:text="Location"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/inputLocation" />
+
+
+    <Button
+        android:id="@+id/btnUploadLocalImg"
+        android:layout_width="328dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="44dp"
+        android:backgroundTint="@color/purple_800"
+        android:backgroundTintMode="add"
+        android:text="Upload Image"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/inputLocation" />
+
+    <TextView
+        android:id="@+id/txt_imglocal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
         android:text="Local Image"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inputImgLocal" />
-
+        app:layout_constraintTop_toBottomOf="@+id/btnUploadLocalImg" />
 
     <Button
         android:id="@+id/btncreateLocal"
@@ -120,11 +144,11 @@
         android:layout_marginEnd="48dp"
         android:backgroundTint="@color/purple_800"
         android:backgroundTintMode="add"
-        android:text="@string/btn_login"
+        android:text="Create Local"
         android:textAllCaps="false"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inputImgLocal" />
+        app:layout_constraintTop_toBottomOf="@+id/btnUploadLocalImg" />
 
 
     <Button
@@ -138,7 +162,7 @@
         android:textAllCaps="false"
         android:textColor="@color/purple_800"
         app:layout_constraintEnd_toStartOf="@+id/btncreateLocal"
-        app:layout_constraintTop_toBottomOf="@+id/inputImgLocal"
+        app:layout_constraintTop_toBottomOf="@+id/btnUploadLocalImg"
         app:strokeColor="@color/purple_800"
         app:strokeWidth="2dp" />
 

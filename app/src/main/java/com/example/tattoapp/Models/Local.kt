@@ -1,9 +1,6 @@
 package com.example.tattoapp.Models
 
-import android.content.Context
 import android.util.Log
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.tattoapp.ApiRequests.LocalServices
 import com.example.tattoapp.RecyclerViews.DataClasses.ServerResponse.LocalResponse
 import com.example.tattoapp.RecyclerViews.LocalRecyclerView
@@ -30,4 +27,6 @@ class Local {
 
         })
     }
+
+
 }
