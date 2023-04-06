@@ -11,12 +11,9 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import com.example.tattoapp.CreateLocalActivity
-import com.example.tattoapp.LoginActivity
-import com.example.tattoapp.R
+import com.example.tattoapp.*
 import com.example.tattoapp.RecyclerViews.DataClasses.ServerResponse.UserResponse
 import com.example.tattoapp.RecyclerViews.DataClasses.User
-import com.example.tattoapp.SignUpActivity
 import com.squareup.picasso.Picasso
 import org.json.JSONObject
 import org.w3c.dom.Text
@@ -28,6 +25,8 @@ class ProfileFragment : Fragment() {
     private lateinit var  binding:View
     private var user:User ?=null
     private var hasConexion:Boolean=true
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -38,6 +37,7 @@ class ProfileFragment : Fragment() {
         binding=inflater.inflate(R.layout.fragment_profile,container,false)
         val button=binding.findViewById<Button>(R.id.btnRegisterUser)
         val btnCreateLocal = binding.findViewById<Button>(R.id.btnCreateLocal)
+        val btnEditLocal=binding.findViewById<Button>(R.id.btnEditLocal)
         button.setOnClickListener {
             val launch = Intent(context,LoginActivity::class.java)
             startActivity(launch)
@@ -49,11 +49,21 @@ class ProfileFragment : Fragment() {
             startActivity(launch)
         }
 
+        btnEditLocal.setOnClickListener {
+            val launch = Intent(context,EditLocalActivity::class.java)
+            startActivity(launch)
+        }
+
         return binding.rootView
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+    }
+
+    override fun onResume() {
+        super.onResume()
         loadInfoUser()
     }
 
@@ -65,6 +75,8 @@ class ProfileFragment : Fragment() {
                 override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
                     Log.e("Prueba",response.toString())
                     Log.e("Prueba2",response.body().toString())
+                    val btnEditLocal=binding.findViewById<Button>(R.id.btnEditLocal)
+
                     if(!response.isSuccessful){
                         val jsonObject = response.errorBody()?.string()?.let { JSONObject(it) };
                         val msgError= jsonObject?.getString("msg").toString();
@@ -79,12 +91,15 @@ class ProfileFragment : Fragment() {
                         .load(user!!.file.toString())
                         .into(image)
                     // TODO("Falta Guardar los mensajes en la BD de la APP")
-
+                    btnEditLocal.visibility=View.GONE
                     if(user!!.hasLocal){
                         val btnCreateLocal=binding.findViewById<Button>(R.id.btnCreateLocal)
                         Log.e("Hola","Hola")
                         btnCreateLocal.visibility=View.GONE
+                        btnEditLocal.visibility=View.VISIBLE
                     }
+
+
 
                 }
 

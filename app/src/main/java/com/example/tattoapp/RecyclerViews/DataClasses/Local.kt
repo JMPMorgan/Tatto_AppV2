@@ -39,4 +39,16 @@ data class Local(
         return response
     }
 
+    fun getLocal():Call<LocalResponse>{
+        return this.localService.getLocal(this.id!!)
+    }
+
+    fun getLocalPerUser():Call<LocalResponse>{
+        return this.localService.getLocalPerUser(this.userCreator!!)
+    }
+
+    fun editLocal():Call<LocalResponse>{
+        return this.localService.updateLocal(this.id!!,this)
+    }
+
 }

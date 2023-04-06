@@ -50,6 +50,21 @@
         tools:layout_editor_absoluteX="0dp" />
 
     <Button
+        android:id="@+id/btnEditLocal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/transparent"
+        android:text="Edit Local"
+        android:textAlignment="textStart"
+        android:textColor="@color/purple_500"
+        android:textSize="16sp"
+        app:icon="@drawable/ic_account"
+        app:iconSize="28dp"
+        app:iconTint="@color/purple_400"
+        app:layout_constraintTop_toBottomOf="@+id/btnCreateLocal"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <Button
         android:id="@+id/btnEdit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -61,7 +76,7 @@
         app:icon="@drawable/ic_account"
         app:iconSize="28dp"
         app:iconTint="@color/purple_400"
-        app:layout_constraintTop_toBottomOf="@+id/btnCreateLocal"
+        app:layout_constraintTop_toBottomOf="@+id/btnEditLocal"
         tools:layout_editor_absoluteX="0dp" />
 
     <Button

@@ -18,4 +18,7 @@ interface LocalServices {
     @GET("/api/local/user/{id}")
     fun getLocalPerUser(@Path("id")id:String):Call<LocalResponse>
 
+    @PUT("/api/local/{id}")
+    fun updateLocal(@Path("id")id:String,@Body local:Local):Call<LocalResponse>
+
 }
