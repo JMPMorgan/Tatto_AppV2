@@ -8,11 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tattoapp.PostsLocal
 import com.example.tattoapp.RecyclerViews.DataClasses.Local
 import com.example.tattoapp.R
+import com.squareup.picasso.Picasso
 
 
 //class LocalAdapter(private val locals:List<Local>):RecyclerView.Adapter<LocalAdapter.ViewHolder>() {
@@ -50,6 +52,9 @@ class LocalRecyclerView (var locals:List<Local>):RecyclerView.Adapter<LocalRecyc
         val local = locals.get(position)
         holder.localName!!.text=local.name
         holder.localID=local.id.toString()
+        Picasso.get()
+            .load(local.img.toString())
+            .into(holder.localImage)
         holder.localPosition=position;
         Log.e("View Selecionado",local.toString())
         return
@@ -70,6 +75,8 @@ class LocalRecyclerView (var locals:List<Local>):RecyclerView.Adapter<LocalRecyc
 
     inner class ViewHolder(itemView:View):RecyclerView.ViewHolder(itemView),View.OnClickListener{
         val localName = itemView?.findViewById<TextView>(R.id.title_local)
+        val localImage = itemView?.findViewById<ImageView>(R.id.imagePost)
+        val localDescription = itemView?.findViewById<TextView>(R.id.description_post)
         var localPosition:Int=0
         var localID:String=""
         init{

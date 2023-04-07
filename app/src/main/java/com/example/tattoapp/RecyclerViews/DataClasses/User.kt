@@ -64,4 +64,8 @@ data class User(
         return this.userServices.getUserInfo(id)
 
     }
+
+    fun editUser():Call<UserResponse>{
+        return this.userServices.updateUser(this.userid!!,this)
+    }
 }

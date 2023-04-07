@@ -38,6 +38,8 @@ class ProfileFragment : Fragment() {
         val button=binding.findViewById<Button>(R.id.btnRegisterUser)
         val btnCreateLocal = binding.findViewById<Button>(R.id.btnCreateLocal)
         val btnEditLocal=binding.findViewById<Button>(R.id.btnEditLocal)
+        val btnEditUser = binding.findViewById<Button>(R.id.btnEditUser)
+        val btnAddPost= binding.findViewById<Button>(R.id.btnAddPost)
         button.setOnClickListener {
             val launch = Intent(context,LoginActivity::class.java)
             startActivity(launch)
@@ -51,6 +53,16 @@ class ProfileFragment : Fragment() {
 
         btnEditLocal.setOnClickListener {
             val launch = Intent(context,EditLocalActivity::class.java)
+            startActivity(launch)
+        }
+
+        btnEditUser.setOnClickListener {
+            val launch = Intent(context,EditUserActivity::class.java)
+            startActivity(launch)
+        }
+
+        btnAddPost.setOnClickListener {
+            val launch = Intent(context,UploadPostActivity::class.java)
             startActivity(launch)
         }
 
@@ -76,6 +88,7 @@ class ProfileFragment : Fragment() {
                     Log.e("Prueba",response.toString())
                     Log.e("Prueba2",response.body().toString())
                     val btnEditLocal=binding.findViewById<Button>(R.id.btnEditLocal)
+                    val btnAddPost= binding.findViewById<Button>(R.id.btnAddPost)
 
                     if(!response.isSuccessful){
                         val jsonObject = response.errorBody()?.string()?.let { JSONObject(it) };
@@ -92,11 +105,13 @@ class ProfileFragment : Fragment() {
                         .into(image)
                     // TODO("Falta Guardar los mensajes en la BD de la APP")
                     btnEditLocal.visibility=View.GONE
+                    btnAddPost.visibility=View.GONE
                     if(user!!.hasLocal){
                         val btnCreateLocal=binding.findViewById<Button>(R.id.btnCreateLocal)
                         Log.e("Hola","Hola")
                         btnCreateLocal.visibility=View.GONE
                         btnEditLocal.visibility=View.VISIBLE
+                        btnAddPost.visibility=View.VISIBLE
                     }
 
 

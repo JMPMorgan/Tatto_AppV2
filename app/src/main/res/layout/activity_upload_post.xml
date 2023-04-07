@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".UploadPostActivity">
+
+    <ImageView
+        android:id="@+id/imagePostLocal"
+        android:layout_width="150dp"
+        android:layout_height="138dp"
+        android:layout_marginStart="128dp"
+        android:layout_marginTop="72dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <EditText
+        android:id="@+id/editTextTextMultiLine"
+        android:layout_width="236dp"
+        android:layout_height="208dp"
+        android:layout_marginStart="84dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/input_main"
+        android:ems="10"
+        android:gravity="start|top"
+        android:inputType="textMultiLine"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imagePostLocal" />
+
+    <Button
+        android:id="@+id/btnSelectImage"
+        android:layout_width="213dp"
+        android:layout_height="47dp"
+        android:layout_marginStart="96dp"
+        android:layout_marginTop="12dp"
+        android:backgroundTint="@color/purple_800"
+        android:backgroundTintMode="add"
+        android:text="Select Image"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextMultiLine" />
+
+    <Button
+        android:id="@+id/btnPublish"
+        android:layout_width="149dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="52dp"
+        android:backgroundTint="@color/purple_800"
+        android:backgroundTintMode="add"
+        android:text="Publish"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnSelectImage" />
+
+    <Button
+        android:id="@+id/btn_back"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="151dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="24dp"
+        android:text="Back"
+        android:textAllCaps="false"
+        android:textColor="@color/purple_800"
+        app:layout_constraintEnd_toStartOf="@+id/btnPublish"
+        app:layout_constraintTop_toBottomOf="@+id/btnSelectImage"
+        app:strokeColor="@color/purple_800"
+        app:strokeWidth="2dp" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="88dp"
+        android:layout_marginTop="44dp"
+        android:text="write the post"
+        app:layout_constraintBottom_toTopOf="@+id/editTextTextMultiLine"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

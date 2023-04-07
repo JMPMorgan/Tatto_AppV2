@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".EditUserActivity">
+
+    <ImageView
+        android:id="@+id/imageViewUserEdit"
+        android:layout_width="193dp"
+        android:layout_height="175dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="36dp"
+        android:src="@drawable/logo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/inputNameUser"
+        android:layout_width="328dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/input_main"
+        android:ems="10"
+        android:inputType="textEmailAddress"
+        android:paddingStart="4dp"
+        android:paddingEnd="4dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewUserEdit" />
+
+
+    <TextView
+        android:id="@+id/txt_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:text="@string/name_str"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/inputNameUser" />
+
+
+    <EditText
+        android:id="@+id/inputLastNameUser"
+        android:layout_width="328dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/input_main"
+        android:ems="10"
+        android:inputType="textEmailAddress"
+        android:paddingStart="4dp"
+        android:paddingEnd="4dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/inputNameUser" />
+
+    <TextView
+        android:id="@+id/txt_lastname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:text="@string/lastname_str"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/inputLastNameUser" />
+
+    <Button
+        android:id="@+id/btnUploadImgUser"
+        android:layout_width="328dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="44dp"
+        android:backgroundTint="@color/purple_800"
+        android:backgroundTintMode="add"
+        android:text="Change Profile Image"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/inputLastNameUser" />
+
+    <Button
+        android:id="@+id/btnEditUser"
+        android:layout_width="149dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="44dp"
+        android:backgroundTint="@color/purple_800"
+        android:backgroundTintMode="add"
+        android:text="Edit User"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnUploadImgUser" />
+
+
+    <Button
+        android:id="@+id/btn_back"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="151dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="28dp"
+        android:text="Back"
+        android:textAllCaps="false"
+        android:textColor="@color/purple_800"
+        app:layout_constraintEnd_toStartOf="@+id/btnEditUser"
+        app:layout_constraintTop_toBottomOf="@+id/btnUploadImgUser"
+        app:strokeColor="@color/purple_800"
+        app:strokeWidth="2dp" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
