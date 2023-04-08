@@ -114,6 +114,8 @@ class SignUpActivity : AppCompatActivity(),DateSelected {
             }
 
             override fun onFailure(call: Call<UserResponse>, t: Throwable) {
+                Log.e("ERROR",t.message.toString())
+                Log.e("ERROR",t.toString())
                 Log.e("Hola","Hola")
             }
 
@@ -132,7 +134,7 @@ class SignUpActivity : AppCompatActivity(),DateSelected {
         calendar.set(Calendar.MONTH,month)
         calendar.set(Calendar.YEAR,year)
 
-        val viewFormatter = SimpleDateFormat("dd/MM/YYYY")
+        val viewFormatter = SimpleDateFormat("dd-MM-YYYY")
         var viewFormattedDate= viewFormatter.format(calendar.time)
         user.birthday=viewFormattedDate
         btnDatePicker!!.setText(viewFormattedDate)
