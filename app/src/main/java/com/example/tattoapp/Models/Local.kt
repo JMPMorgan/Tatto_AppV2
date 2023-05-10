@@ -15,9 +15,10 @@ class Local {
         response.enqueue(object : Callback<LocalResponse>{
             override fun onResponse(call: Call<LocalResponse>, response: Response<LocalResponse>) {
                 locals=response.body()?.locals!!
+                Log.e("HOLA COMO ESTAS",locals.toString())
 //                Log.e("ADAPTEERRRR",adapter.toString())
                 localRecyclerView.add(locals)
-                Log.e("HOLA COMO ESTAS",locals.toString())
+
 
             }
 

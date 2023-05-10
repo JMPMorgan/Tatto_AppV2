@@ -23,4 +23,8 @@ data class Post(
     fun createPost(): Call<PostResponse> {
         return postsServices.createPost(this)
     }
+
+    fun loadPostsperLocal(idLocal:String):Call<PostResponse>{
+        return postsServices.getPostsPerLocal(idLocal)
+    }
 }

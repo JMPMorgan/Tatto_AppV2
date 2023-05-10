@@ -11,8 +11,10 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
+import com.example.tattoapp.DB.SQLUser
 import com.example.tattoapp.RecyclerViews.DataClasses.Post
 import com.example.tattoapp.RecyclerViews.DataClasses.ServerResponse.PostResponse
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -24,6 +26,7 @@ class UploadPostActivity : AppCompatActivity() {
     private val pickImage=104
     var imgArray:ByteArray?=null
     val post:Post=Post()
+    val SQLUser= SQLUser(this)
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,6 +34,7 @@ class UploadPostActivity : AppCompatActivity() {
         setContentView(R.layout.activity_upload_post)
         val btnSelectImage = findViewById<Button>(R.id.btnSelectImage)
         val btnUploadPost= findViewById<Button>(R.id.btnPublish)
+        val btnBack =  findViewById<Button>(R.id.btn_back_upl_post)
         btnSelectImage.setOnClickListener {
             val gallery= Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
             startActivityForResult(gallery,pickImage)
@@ -38,6 +42,11 @@ class UploadPostActivity : AppCompatActivity() {
 
         btnUploadPost.setOnClickListener {
             uploadPost()
+        }
+
+        btnBack.setOnClickListener {
+            val launch= Intent(this,MainActivity::class.java)
+            startActivity(launch)
         }
     }
 
@@ -59,7 +68,8 @@ class UploadPostActivity : AppCompatActivity() {
 
     fun uploadPost(){
         val editText = findViewById<EditText>(R.id.editTextTextMultiLine).text.toString()
-        post.userid="641b619dac5f89b8ad46f7fa"
+        val userData= SQLUser.getInformation()
+        post.userid=userData[0].toString()
         post.localid="642d08e7a6d3ee4dd5c1752a"
 
         if(editText.isEmpty()){
@@ -67,12 +77,25 @@ class UploadPostActivity : AppCompatActivity() {
             return;
         }
 
+        if(post.img!!.isEmpty()){
+            showToast("Debe seleccioanr una imagen")
+            return
+        }
+
         post.description=editText
 
         val response = post.createPost()
         response.enqueue(object : Callback<PostResponse>{
             override fun onResponse(call: Call<PostResponse>, response: Response<PostResponse>) {
-                Log.e("Prueba POst",response.body().toString())
+                if(!response.isSuccessful){
+                    val jsonObject= response.errorBody()?.string()?.let{ JSONObject(it) }
+                    val msgError=jsonObject?.getString("msg").toString()
+                    showToast(msgError)
+                    return;
+                }
+                showToast("Post Creado con Exito.")
+                val launch = Intent(this@UploadPostActivity,MainActivity::class.java)
+                startActivity(launch)
             }
 
             override fun onFailure(call: Call<PostResponse>, t: Throwable) {

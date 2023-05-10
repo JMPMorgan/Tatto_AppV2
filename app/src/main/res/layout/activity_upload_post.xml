@@ -58,7 +58,7 @@
         app:layout_constraintTop_toBottomOf="@+id/btnSelectImage" />
 
     <Button
-        android:id="@+id/btn_back"
+        android:id="@+id/btn_back_upl_post"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="151dp"
         android:layout_height="50dp"

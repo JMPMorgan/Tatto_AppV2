@@ -60,10 +60,13 @@ class LoginActivity : AppCompatActivity() {
                 val userDataSQL=SQLUser(this@LoginActivity)
                 val data = userDataSQL.getInformation()
                 if(data.isEmpty()){
+                    userDataSQL.onCreate(userDataSQL.writableDatabase)
                     userDataSQL.newUser(user?.name.toString(),user?.lastname.toString(),user?.username.toString(),user?.birthday.toString(),user?.email.toString(),user?.userid.toString(),user?.password.toString())
                 }
                 Log.e("USUARIO",user.toString())
                 Log.e("USUARIO SQL UWU",data.toString())
+                val launch = Intent(this@LoginActivity,MainActivity::class.java)
+                startActivity(launch)
                 // TODO("Falta Guardar los mensajes en la BD de la APP")
 
             }

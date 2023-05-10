@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.tattoapp.DB.SQLUser
 import com.example.tattoapp.R
 import com.example.tattoapp.RecyclerViews.ChatsRecyclerView
 import com.example.tattoapp.RecyclerViews.DataClasses.Chats
@@ -19,6 +20,8 @@ import retrofit2.Response
 class ChatsFragment : Fragment() {
     private lateinit var  binding:View
     private lateinit var adapter: ChatsRecyclerView
+    var listChats: List<Chats> = listOf()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,12 +39,12 @@ class ChatsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setUpRecyclerView()
         setUpChats()
+        setUpRecyclerView()
     }
 
     private fun setUpRecyclerView() {
-        adapter=ChatsRecyclerView(listOf())
+        adapter=ChatsRecyclerView(listChats)
         binding.findViewById<RecyclerView>(R.id.chatsRecycler).apply {
             layoutManager=GridLayoutManager(
                 activity,1,GridLayoutManager.VERTICAL,false
@@ -52,11 +55,17 @@ class ChatsFragment : Fragment() {
     }
 
     private fun setUpChats(){
+        val SQLUser=SQLUser(requireContext())
+        val data = SQLUser.getInformation()
+        if(data.isEmpty()){
+            return
+        }
         val chats=Chats()
-        val result=chats.getConversations("641b619dac5f89b8ad46f7fa")
+        val result=chats.getConversations(data[0].toString())
         result.enqueue(object :Callback<ChatsResponse>{
             override fun onResponse(call: Call<ChatsResponse>, response: Response<ChatsResponse>) {
-                Log.e("PRUEBA",response.body().toString())
+                listChats=response.body()!!.chats!!
+                adapter.add(listChats)
             }
 
             override fun onFailure(call: Call<ChatsResponse>, t: Throwable) {

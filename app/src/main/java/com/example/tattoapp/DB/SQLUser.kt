@@ -23,6 +23,9 @@ class SQLUser(context:Context):SQLiteOpenHelper(context,"user",null,1) {
     fun getInformation():List<Any>{
         val query="SELECT * FROM USER"
         val db= this.writableDatabase
+        if(!isTableExists("USER",db )){
+            return listOf()
+        }
         val cursor=db.rawQuery("SELECT * FROM USER",null)
         cursor.moveToFirst()
 //        val data = )
@@ -63,8 +66,9 @@ class SQLUser(context:Context):SQLiteOpenHelper(context,"user",null,1) {
 //        }
     }
 
-    fun deleteInformation(db: SQLiteDatabase?){
+    fun deleteInformation(){
         val borrar ="DROP TABLE IF EXISTS USER"
+        val db= this.writableDatabase
         db!!.execSQL(borrar)
     }
 
@@ -82,6 +86,13 @@ class SQLUser(context:Context):SQLiteOpenHelper(context,"user",null,1) {
         db.insert("USER",null,data)
         db.close()
 
+    }
+
+    fun isTableExists(tableName: String, database: SQLiteDatabase): Boolean {
+        val cursor = database.rawQuery("SELECT name FROM sqlite_master WHERE type='table' AND name='$tableName'", null)
+        val tableExists = cursor.count > 0
+        cursor.close()
+        return tableExists
     }
 
 }

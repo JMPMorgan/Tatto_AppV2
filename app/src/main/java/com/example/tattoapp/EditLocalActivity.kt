@@ -38,6 +38,8 @@ class EditLocalActivity : AppCompatActivity() {
          inputSchedule = findViewById<EditText>(R.id.inputScheduleEdit)
         inputWeekdays = findViewById<EditText>(R.id.inputWeekdaysEdit)
         inputLocation= findViewById<EditText>(R.id.inputLocationEdit)
+
+        val btnBack = findViewById<Button>(R.id.btn_back_edit)
         btnUploadImg!!.setOnClickListener {
             val gallery= Intent(Intent.ACTION_PICK,MediaStore.Images.Media.INTERNAL_CONTENT_URI)
             startActivityForResult(gallery,pickImage)
@@ -45,6 +47,11 @@ class EditLocalActivity : AppCompatActivity() {
 
         btnEditLocal!!.setOnClickListener {
             editLocal()
+        }
+
+        btnBack.setOnClickListener {
+            val launch = Intent(this,MainActivity::class.java)
+            startActivity(launch)
         }
         getInfoLocal()
     }

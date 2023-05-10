@@ -15,6 +15,7 @@ import com.example.tattoapp.Fragments.DatePickerFragment
 import com.example.tattoapp.Interfaces.DateSelected
 import com.example.tattoapp.RecyclerViews.DataClasses.ServerResponse.UserResponse
 import com.example.tattoapp.RecyclerViews.DataClasses.User
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -35,6 +36,7 @@ class SignUpActivity : AppCompatActivity(),DateSelected {
         btnDatePicker=findViewById<Button>(R.id.btnPickDate)
         btnPickImage=findViewById(R.id.btnPickImage)
         val btnSignUp = findViewById<Button>(R.id.btnRegisterUser)
+        val btnBack = findViewById<Button>(R.id.btn_back)
 
         btnDatePicker!!.setOnClickListener {
             showDatePicker();
@@ -47,6 +49,11 @@ class SignUpActivity : AppCompatActivity(),DateSelected {
 
         btnSignUp.setOnClickListener {
             validateNewUser()
+        }
+
+        btnBack.setOnClickListener {
+            val launch = Intent(this@SignUpActivity,LoginActivity::class.java)
+            startActivity(launch)
         }
 
     }
@@ -106,11 +113,18 @@ class SignUpActivity : AppCompatActivity(),DateSelected {
     }
 
     fun newUser(user:User){
-        val prueba= user.createUser()
-        prueba.enqueue(object : Callback<UserResponse> {
+        user.createUser().enqueue(object : Callback<UserResponse> {
             override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
-//                 users= response.body()?.users!!
-                Log.e("USERS",response.body().toString())
+                if(!response.isSuccessful){
+                    val jsonObject= response.errorBody()?.string()?.let{ JSONObject(it) }
+                    val msgError=jsonObject?.getString("msg").toString()
+                    showToast(msgError)
+                    return;
+                }
+                showToast("Usuario Registrado con Exito.")
+
+                val launch = Intent(this@SignUpActivity,LoginActivity::class.java)
+                startActivity(launch)
             }
 
             override fun onFailure(call: Call<UserResponse>, t: Throwable) {

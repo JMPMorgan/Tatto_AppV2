@@ -9,8 +9,10 @@ import android.widget.TextView
 import com.example.tattoapp.Models.Posts
 import com.example.tattoapp.RecyclerViews.DataClasses.Local
 import com.example.tattoapp.RecyclerViews.DataClasses.Message
+import com.example.tattoapp.RecyclerViews.DataClasses.Post
 import com.example.tattoapp.RecyclerViews.DataClasses.ServerResponse.LocalResponse
 import com.example.tattoapp.RecyclerViews.DataClasses.ServerResponse.MessageResponse
+import com.example.tattoapp.RecyclerViews.DataClasses.ServerResponse.PostResponse
 import com.squareup.picasso.Picasso
 import retrofit2.Call
 import retrofit2.Callback
@@ -19,6 +21,7 @@ import retrofit2.Response
 class PostsLocal : AppCompatActivity() {
     private var idLocal:String =""
     val local: Local = Local()
+    val posts: Post= Post()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,7 +63,6 @@ class PostsLocal : AppCompatActivity() {
         val result = local.getLocal()
         result.enqueue(object : Callback<LocalResponse>{
             override fun onResponse(call: Call<LocalResponse>, response: Response<LocalResponse>) {
-                Log.e("PRUEBA GET LOCAL",response.body().toString())
                 val imageLocal = findViewById<ImageView>(R.id.imageLocal)
                 val titleLocal = findViewById<TextView>(R.id.title_local)
                 Picasso.get()
@@ -73,5 +75,7 @@ class PostsLocal : AppCompatActivity() {
                 TODO("Not yet implemented")
             }
         })
+
     }
 }
+

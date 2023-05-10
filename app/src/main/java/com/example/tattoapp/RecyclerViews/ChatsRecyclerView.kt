@@ -7,9 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tattoapp.R
 import com.example.tattoapp.RecyclerViews.DataClasses.Chats
+import com.squareup.picasso.Picasso
 
 class ChatsRecyclerView(var chats:List<Chats>):RecyclerView.Adapter<ChatsRecyclerView.ViewHolder>(),Filterable {
    lateinit var context: Context
@@ -21,6 +24,13 @@ class ChatsRecyclerView(var chats:List<Chats>):RecyclerView.Adapter<ChatsRecycle
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val chat = chats.get(position)
+        Picasso.get()
+            .load(chat.user!!.file.toString())
+            .into(holder.chatImage)
+        holder.chatUsername!!.text="${chat.user!!.name.toString()} ${chat.user!!.lastname.toString()}"
+        holder.chatImage
+        holder.chatPosition=position
         return
     }
 
@@ -28,9 +38,17 @@ class ChatsRecyclerView(var chats:List<Chats>):RecyclerView.Adapter<ChatsRecycle
        return chats.size
     }
 
+    fun add(chatsAdd:List<Chats>){
+        chats=chatsAdd
+        notifyItemInserted(chats.size)
+    }
+
 
     inner class ViewHolder(itemView: View):RecyclerView.ViewHolder(itemView),View.OnClickListener{
-
+        val chatImage = itemView?.findViewById<ImageView>(R.id.imageConversations)
+        val chatUsername = itemView?.findViewById<TextView>(R.id.vtUser)
+        var chatPosition:Int=0
+        var chatID:String=""
         init {
             itemView.setOnClickListener (this)
         }

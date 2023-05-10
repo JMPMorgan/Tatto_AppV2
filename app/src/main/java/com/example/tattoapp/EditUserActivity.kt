@@ -11,9 +11,11 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
+import com.example.tattoapp.DB.SQLUser
 import com.example.tattoapp.RecyclerViews.DataClasses.ServerResponse.UserResponse
 import com.example.tattoapp.RecyclerViews.DataClasses.User
 import com.squareup.picasso.Picasso
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -25,6 +27,9 @@ class EditUserActivity : AppCompatActivity() {
     private val pickImage=103
     var imgArray:ByteArray?=null
     val user:User=User()
+    var idUser:String = ""
+
+    val SQLUser= SQLUser(this)
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,6 +37,7 @@ class EditUserActivity : AppCompatActivity() {
         setContentView(R.layout.activity_edit_user)
         val btnEditUser = findViewById<Button>(R.id.btnEditUser)
         val btnChangePhotoUser=findViewById<Button>(R.id.btnUploadImgUser)
+        val btnBack = findViewById<Button>(R.id.btn_back_edt_user)
         btnEditUser.setOnClickListener {
             editUser()
         }
@@ -41,6 +47,12 @@ class EditUserActivity : AppCompatActivity() {
             startActivityForResult(gallery,pickImage)
         }
 
+        btnBack.setOnClickListener {
+            val launch = Intent(this, MainActivity::class.java)
+            startActivity(launch)
+        }
+        val data = SQLUser.getInformation()
+        idUser=data[0].toString()
         loadUser()
     }
 
@@ -76,11 +88,17 @@ class EditUserActivity : AppCompatActivity() {
 
         user.lastname=inputLastName
         user.name=inputName
-        user.userid="641b619dac5f89b8ad46f7fa"
+        user.userid=idUser
         val result = user.editUser()
         result.enqueue(object : Callback<UserResponse>{
             override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
-                Log.e("PRUEBA",response.body().toString())
+                if(!response.isSuccessful){
+                    val jsonObject= response.errorBody()?.string()?.let{ JSONObject(it) }
+                    val msgError=jsonObject?.getString("msg").toString()
+                    showToast(msgError)
+                    return;
+                }
+                showToast("Usuario Editado con Exito.")
             }
 
             override fun onFailure(call: Call<UserResponse>, t: Throwable) {
@@ -93,17 +111,18 @@ class EditUserActivity : AppCompatActivity() {
         val inputName= findViewById<EditText>(R.id.inputNameUser)
         val inputLastName= findViewById<EditText>(R.id.inputLastNameUser)
         val imageViewProfile = findViewById<ImageView>(R.id.imageViewUserEdit)
-        user.userid="641b619dac5f89b8ad46f7fa"
+        user.userid=idUser
         val result = user.getUser(user.userid!!)
         result.enqueue(object : Callback<UserResponse>{
             override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
-                Log.e("PRUEBA",response.body().toString())
                 inputName.setText(response.body()!!.user!!.name)
                 inputLastName.setText(response.body()!!.user!!.lastname)
 
                 Picasso.get()
                     .load(response.body()!!.user!!.file.toString())
                     .into(imageViewProfile)
+
+                user.file=response.body()!!.user!!.file .toString()
             }
 
             override fun onFailure(call: Call<UserResponse>, t: Throwable) {

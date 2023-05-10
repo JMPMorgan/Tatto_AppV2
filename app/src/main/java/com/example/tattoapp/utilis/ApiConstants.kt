@@ -6,7 +6,8 @@ class ApiConstants {
 //        const val BASEURL_DEV="https://backend-tatto.onrender.com/"
         //192.168.100.9
         //192.168.0.10
-        const val BASEURL_DEV="http://192.168.100.9:8080"
+        //192.168.100.13
+        const val BASEURL_DEV="http://192.168.100.13:8080"
         const val BASEURL_PROD=""
     }
 }
