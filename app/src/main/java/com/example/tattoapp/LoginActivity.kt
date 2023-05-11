@@ -7,7 +7,10 @@ import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import com.example.tattoapp.DB.SQLLocal
 import com.example.tattoapp.DB.SQLUser
+import com.example.tattoapp.RecyclerViews.DataClasses.Local
+import com.example.tattoapp.RecyclerViews.DataClasses.ServerResponse.LocalResponse
 import com.example.tattoapp.RecyclerViews.DataClasses.ServerResponse.UserResponse
 import com.example.tattoapp.RecyclerViews.DataClasses.User
 import org.json.JSONObject
@@ -63,16 +66,47 @@ class LoginActivity : AppCompatActivity() {
                     userDataSQL.onCreate(userDataSQL.writableDatabase)
                     userDataSQL.newUser(user?.name.toString(),user?.lastname.toString(),user?.username.toString(),user?.birthday.toString(),user?.email.toString(),user?.userid.toString(),user?.password.toString())
                 }
+                loadLocalInfoPerUser(user?.userid.toString())
                 Log.e("USUARIO",user.toString())
                 Log.e("USUARIO SQL UWU",data.toString())
-                val launch = Intent(this@LoginActivity,MainActivity::class.java)
-                startActivity(launch)
+
                 // TODO("Falta Guardar los mensajes en la BD de la APP")
 
             }
 
             override fun onFailure(call: Call<UserResponse>, t: Throwable) {
                 Log.e("Hola","Hola")
+            }
+        })
+    }
+
+
+    private fun loadLocalInfoPerUser(idUser:String){
+        val local = Local()
+        local.userCreator=idUser
+        val result = local.getLocalPerUser()
+        result.enqueue(object : Callback<LocalResponse>{
+            override fun onResponse(call: Call<LocalResponse>, response: Response<LocalResponse>) {
+                val localResponse = response.body()!!.local
+                val localDataSQL= SQLLocal(this@LoginActivity)
+                localDataSQL.deleteInformationLocal()
+                if(!localDataSQL.isTableExists("LOCAL",localDataSQL.writableDatabase)){
+                    localDataSQL.onCreate(localDataSQL.writableDatabase)
+                    localDataSQL
+                        .newLocal(localResponse!!.name.toString(),
+                                  localResponse!!.location.toString(),
+                                  localResponse.weekdays.toString(),
+                                  localResponse.schedule.toString(),
+                                  idUser,
+                                  true,
+                                  idUser)
+                }
+                val launch = Intent(this@LoginActivity,MainActivity::class.java)
+                startActivity(launch)
+            }
+
+            override fun onFailure(call: Call<LocalResponse>, t: Throwable) {
+
             }
         })
     }

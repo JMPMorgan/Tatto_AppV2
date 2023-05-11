@@ -11,6 +11,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
+import com.example.tattoapp.DB.SQLLocal
 import com.example.tattoapp.DB.SQLUser
 import com.example.tattoapp.RecyclerViews.DataClasses.Post
 import com.example.tattoapp.RecyclerViews.DataClasses.ServerResponse.PostResponse
@@ -27,6 +28,7 @@ class UploadPostActivity : AppCompatActivity() {
     var imgArray:ByteArray?=null
     val post:Post=Post()
     val SQLUser= SQLUser(this)
+    val SQLLocal = SQLLocal(this)
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -70,7 +72,8 @@ class UploadPostActivity : AppCompatActivity() {
         val editText = findViewById<EditText>(R.id.editTextTextMultiLine).text.toString()
         val userData= SQLUser.getInformation()
         post.userid=userData[0].toString()
-        post.localid="642d08e7a6d3ee4dd5c1752a"
+        val localData= SQLLocal.getLocalPerUser(post.userid!!)
+        post.localid=localData[localData.size-1].toString()
 
         if(editText.isEmpty()){
             showToast("La descripcion es requerida")

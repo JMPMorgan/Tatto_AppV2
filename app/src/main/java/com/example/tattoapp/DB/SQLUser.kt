@@ -28,9 +28,6 @@ class SQLUser(context:Context):SQLiteOpenHelper(context,"user",null,1) {
         }
         val cursor=db.rawQuery("SELECT * FROM USER",null)
         cursor.moveToFirst()
-//        val data = )
-//        Log.e("CURSOS",cursor.getString(cursor.getColumnIndex("ID_BACKEND")))
-        Log.d("INFo",cursor.count.toString())
         if(cursor.count <= 0){
             cursor.close()
             return listOf()
@@ -43,27 +40,8 @@ class SQLUser(context:Context):SQLiteOpenHelper(context,"user",null,1) {
         info.add(cursor.getString(cursor.getColumnIndex("USER")))
         info.add(cursor.getString(cursor.getColumnIndex("BIRTHDATE")))
         info.add(cursor.getString(cursor.getColumnIndex("EMAIL")))
-
-
-
-//        val mutableInfo=info.toMutableList()
-
+        cursor.close()
         return info
-//        val courseModalArrayList =  ArrayList<CourseModal>
-//        if (cursorCourses.moveToFirst()) {
-//            do {
-//                // on below line we are adding the data from cursor to our array list.
-//                courseModalArrayList.add(
-//                    CourseModal(
-//                        cursorCourses.getString(1),
-//                        cursorCourses.getString(4),
-//                        cursorCourses.getString(2),
-//                        cursorCourses.getString(3)
-//                    )
-//                )
-//            } while (cursorCourses.moveToNext())
-//            // moving our cursor to next.
-//        }
     }
 
     fun deleteInformation(){
