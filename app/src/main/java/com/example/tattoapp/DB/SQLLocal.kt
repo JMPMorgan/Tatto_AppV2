@@ -31,8 +31,8 @@ class SQLLocal(context: Context): SQLiteOpenHelper(context,"local",null,1) {
         info.add(cursor.getString(cursor.getColumnIndex("LOCATION")))
         info.add(cursor.getString(cursor.getColumnIndex("WEEKDAYS")))
         info.add(cursor.getString(cursor.getColumnIndex("NAME")))
-        info.add(cursor.getString(cursor.getColumnIndex("USER")))
         info.add(cursor.getString(cursor.getColumnIndex("STATUS")))
+        info.add(cursor.getString(cursor.getColumnIndex("USER")))
         info.add(cursor.getString(cursor.getColumnIndex("ID_BACKEND")))
 
         cursor.close()
@@ -45,9 +45,6 @@ class SQLLocal(context: Context): SQLiteOpenHelper(context,"local",null,1) {
         val db = this.writableDatabase
         val cursor = db.rawQuery("SELECT * FROM LOCAL", null)
         cursor.moveToFirst()
-//        val data = )
-//        Log.e("CURSOS",cursor.getString(cursor.getColumnIndex("ID_BACKEND")))
-        Log.d("INFO", cursor.count.toString())
         if (cursor.count <= 0) {
             cursor.close()
             return listOf()
@@ -56,7 +53,7 @@ class SQLLocal(context: Context): SQLiteOpenHelper(context,"local",null,1) {
         info.add(cursor.getString(cursor.getColumnIndex("ID_BACKEND")))
         info.add(cursor.getString(cursor.getColumnIndex("NAME")))
         info.add(cursor.getString(cursor.getColumnIndex("LOCATION")))
-        info.add(cursor.getString(cursor.getColumnIndex("SCHEDULE ")))
+        info.add(cursor.getString(cursor.getColumnIndex("SCHEDULE")))
         info.add(cursor.getString(cursor.getColumnIndex("WEEKDAYS")))
         info.add(cursor.getString(cursor.getColumnIndex("USER")))
         info.add(cursor.getString(cursor.getColumnIndex("STATUS")))
@@ -93,6 +90,7 @@ class SQLLocal(context: Context): SQLiteOpenHelper(context,"local",null,1) {
         val cursor = database.rawQuery("SELECT name FROM sqlite_master WHERE type='table' AND name='$tableName'", null)
         val tableExists = cursor.count > 0
         cursor.close()
+        Log.e("PRUEBA TABLA",tableExists.toString())
         return tableExists
     }
 }

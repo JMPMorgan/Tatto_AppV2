@@ -98,6 +98,7 @@ class EditUserActivity : AppCompatActivity() {
                     showToast(msgError)
                     return;
                 }
+                SQLUser.editUser(user.name!!,user.lastname!!,user.userid!!)
                 showToast("Usuario Editado con Exito.")
             }
 

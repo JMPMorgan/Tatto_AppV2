@@ -1,6 +1,7 @@
 package com.example.tattoapp.DB
 
 import android.annotation.SuppressLint
+import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
@@ -64,6 +65,13 @@ class SQLUser(context:Context):SQLiteOpenHelper(context,"user",null,1) {
         db.insert("USER",null,data)
         db.close()
 
+    }
+
+    fun editUser(name:String,lastname: String,idBackend: String){
+        val contentValues= ContentValues()
+        contentValues.put("NAME",name)
+        contentValues.put("LASTNAME",lastname)
+        this.writableDatabase.update("USER",contentValues,"ID_BACKEND='${idBackend}'",null)
     }
 
     fun isTableExists(tableName: String, database: SQLiteDatabase): Boolean {

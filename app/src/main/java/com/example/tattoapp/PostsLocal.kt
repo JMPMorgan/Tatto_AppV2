@@ -6,6 +6,9 @@ import android.util.Log
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
+import com.example.tattoapp.DB.SQLLocal
+import com.example.tattoapp.DB.SQLUser
 import com.example.tattoapp.Models.Posts
 import com.example.tattoapp.RecyclerViews.DataClasses.Local
 import com.example.tattoapp.RecyclerViews.DataClasses.Message
@@ -22,6 +25,9 @@ class PostsLocal : AppCompatActivity() {
     private var idLocal:String =""
     val local: Local = Local()
     val posts: Post= Post()
+
+    val SQLUser=SQLUser(this)
+    val SQLLocal= SQLLocal(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,15 +46,17 @@ class PostsLocal : AppCompatActivity() {
     fun sendMessage() {
         val message: Message= Message()
         message.message="Hola que tal quisiera informacion de tus servicios"
-        message.idsender="6431c75ee12f94212a63c0ef"
-        message.idreceiver="641b619dac5f89b8ad46f7fa"
+        val info = SQLUser.getInformation()
+        val infoLocal=SQLLocal.getLocalPerUser(info[0].toString())
+        message.idsender=infoLocal[infoLocal.size-2].toString()
+        message.idreceiver=info[0].toString()
         val result = message.sendMessage()
         result.enqueue(object : Callback<MessageResponse>{
             override fun onResponse(
                 call: Call<MessageResponse>,
                 response: Response<MessageResponse>
             ) {
-               Log.e("Mensaje de response",response.body().toString())
+               showToast("Mensaje Enviado con Exito.")
             }
 
             override fun onFailure(call: Call<MessageResponse>, t: Throwable) {
@@ -76,6 +84,11 @@ class PostsLocal : AppCompatActivity() {
             }
         })
 
+    }
+
+
+    fun showToast(text:String){
+        Toast.makeText(this ,text, Toast.LENGTH_SHORT).show()
     }
 }
 

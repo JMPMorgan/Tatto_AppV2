@@ -11,6 +11,7 @@ import android.widget.Filterable
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.tattoapp.DB.SQLLocal
 import com.example.tattoapp.PostsLocal
 import com.example.tattoapp.RecyclerViews.DataClasses.Local
 import com.example.tattoapp.R
@@ -38,9 +39,6 @@ import com.squareup.picasso.Picasso
 //}
 
 class LocalRecyclerView (var locals:List<Local>):RecyclerView.Adapter<LocalRecyclerView.ViewHolder>(),Filterable{
-
-
-
     public lateinit var context: Context
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         context=parent.context

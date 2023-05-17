@@ -18,7 +18,7 @@ data class Chats(
     var user:User?=null,
     @SerializedName("artist")
     var artist:User?=null,
-    @SerializedName("last_message")
+    @SerializedName("message")
     var lastMessage:String?=null
 ){
     private val chatsServices:ChatsServices=ApiEngine.getApi().create(ChatsServices::class.java)

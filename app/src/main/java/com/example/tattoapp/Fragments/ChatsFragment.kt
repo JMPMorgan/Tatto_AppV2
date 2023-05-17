@@ -65,6 +65,7 @@ class ChatsFragment : Fragment() {
         result.enqueue(object :Callback<ChatsResponse>{
             override fun onResponse(call: Call<ChatsResponse>, response: Response<ChatsResponse>) {
                 listChats=response.body()!!.chats!!
+                Log.e("CHATS AAAA",listChats.toString())
                 adapter.add(listChats)
             }
 

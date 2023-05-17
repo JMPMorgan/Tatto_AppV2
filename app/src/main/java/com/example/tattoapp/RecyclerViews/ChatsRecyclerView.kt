@@ -29,8 +29,9 @@ class ChatsRecyclerView(var chats:List<Chats>):RecyclerView.Adapter<ChatsRecycle
             .load(chat.user!!.file.toString())
             .into(holder.chatImage)
         holder.chatUsername!!.text="${chat.user!!.name.toString()} ${chat.user!!.lastname.toString()}"
-        holder.chatImage
         holder.chatPosition=position
+        holder.chatMessage!!.text=chat.lastMessage.toString()
+        holder.chatID=chat.id.toString()
         return
     }
 
@@ -47,6 +48,7 @@ class ChatsRecyclerView(var chats:List<Chats>):RecyclerView.Adapter<ChatsRecycle
     inner class ViewHolder(itemView: View):RecyclerView.ViewHolder(itemView),View.OnClickListener{
         val chatImage = itemView?.findViewById<ImageView>(R.id.imageConversations)
         val chatUsername = itemView?.findViewById<TextView>(R.id.vtUser)
+        val chatMessage= itemView?.findViewById<TextView>(R.id.chatMessage)
         var chatPosition:Int=0
         var chatID:String=""
         init {

@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
 import android.widget.*
+import com.example.tattoapp.DB.SQLUser
 import com.example.tattoapp.RecyclerViews.DataClasses.Local
 import com.example.tattoapp.RecyclerViews.DataClasses.ServerResponse.LocalResponse
 import org.w3c.dom.Text
@@ -24,6 +25,7 @@ class CreateLocalActivity : AppCompatActivity() {
     var imgArray:ByteArray? =  null
     var btnUploadImg:Button?=null
     val local:Local=Local()
+    val SQLUser=SQLUser(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -89,8 +91,9 @@ class CreateLocalActivity : AppCompatActivity() {
         local.weekdays=weekdays
         local.schedule=schedule
         local.location=location
+        val info = SQLUser.getInformation()
         //TODO("Get the data of DB")
-        local.userCreator="641b619dac5f89b8ad46f7fa"
+        local.userCreator=info[0].toString()
 
 
         Log.e("LOcal",local.toString())
