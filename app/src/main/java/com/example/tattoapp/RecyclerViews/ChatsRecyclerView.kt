@@ -1,6 +1,7 @@
 package com.example.tattoapp.RecyclerViews
 
 import android.content.Context
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,7 @@ import android.widget.Filterable
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.tattoapp.MessagesChatActivity
 import com.example.tattoapp.R
 import com.example.tattoapp.RecyclerViews.DataClasses.Chats
 import com.squareup.picasso.Picasso
@@ -55,7 +57,13 @@ class ChatsRecyclerView(var chats:List<Chats>):RecyclerView.Adapter<ChatsRecycle
             itemView.setOnClickListener (this)
         }
         override fun onClick(view: View?) {
-           Log.e("Prueba","Pru=eba")
+            when(view!!.id){
+                R.id.chats_info->{
+                    val activity= Intent(context, MessagesChatActivity::class.java)
+                    activity.putExtra("chatID",chatID)
+                    context.startActivity(activity)
+                }
+            }
         }
 
     }

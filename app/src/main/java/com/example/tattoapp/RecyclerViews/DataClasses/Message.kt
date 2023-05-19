@@ -30,4 +30,8 @@ data class Message(
     fun sendMessage(): Call<MessageResponse> {
         return messgeServices.sendMessage(this)
     }
+
+    fun getConversation(idConversation:String):Call<MessageResponse>{
+        return messgeServices.getConversation(idConversation)
+    }
 }

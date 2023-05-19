@@ -17,6 +17,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".MessagesChatActivity"
+            android:exported="false" />
+        <activity
             android:name=".UploadPostActivity"
             android:exported="false" />
         <activity

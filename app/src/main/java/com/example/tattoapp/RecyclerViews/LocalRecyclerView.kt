@@ -17,27 +17,6 @@ import com.example.tattoapp.RecyclerViews.DataClasses.Local
 import com.example.tattoapp.R
 import com.squareup.picasso.Picasso
 
-
-//class LocalAdapter(private val locals:List<Local>):RecyclerView.Adapter<LocalAdapter.ViewHolder>() {
-//
-//    private lateinit var context: Context
-//    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LocalAdapter.ViewHolder {
-//        TODO("Not yet implemented")
-//    }
-//
-//    override fun onBindViewHolder(holder: LocalAdapter.ViewHolder, position: Int) {
-//        TODO("Not yet implemented")
-//    }
-//
-//    override fun getItemCount(): Int {
-//        TODO("Not yet implemented")
-//    }
-//
-//    inner class ViewHolder(view : View):RecyclerView.ViewHolder(view){
-//
-//    }
-//}
-
 class LocalRecyclerView (var locals:List<Local>):RecyclerView.Adapter<LocalRecyclerView.ViewHolder>(),Filterable{
     public lateinit var context: Context
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
