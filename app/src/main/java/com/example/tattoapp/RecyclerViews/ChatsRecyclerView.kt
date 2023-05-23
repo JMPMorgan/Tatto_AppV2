@@ -27,6 +27,7 @@ class ChatsRecyclerView(var chats:List<Chats>):RecyclerView.Adapter<ChatsRecycle
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val chat = chats.get(position)
+        Log.e("PRUEBA",chat.user!!.file.toString())
         Picasso.get()
             .load(chat.user!!.file.toString())
             .into(holder.chatImage)

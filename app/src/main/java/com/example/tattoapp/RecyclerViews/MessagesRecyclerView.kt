@@ -59,6 +59,11 @@ class MessagesRecyclerView(var messages: List<Message>): RecyclerView.Adapter<Me
 
     }
 
+    fun add(messagesList:List<Message>){
+        messages=messagesList
+        notifyItemInserted(messages.size)
+    }
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -74,9 +79,9 @@ class MessagesRecyclerView(var messages: List<Message>): RecyclerView.Adapter<Me
         val message = messages.get(position)
         holder.message!!.text = message.message!!
         holder.userName!!.text= "${message.sender!!.name} ${message.sender!!.lastname}"
-        Picasso.get()
-            .load(message.sender!!.file)
-            .into(holder.profileImage)
+//        Picasso.get()
+//            .load(message.sender!!.file)
+//            .into(holder.profileImage)
         holder.messagePosition=position
         return
     }
@@ -87,7 +92,6 @@ class MessagesRecyclerView(var messages: List<Message>): RecyclerView.Adapter<Me
 
 
     inner class ViewHolder(itemView: View):RecyclerView.ViewHolder(itemView),View.OnClickListener{
-        val profileImage = itemView?.findViewById<ImageView>(R.id.imageProfileMessage)
         val userName = itemView?.findViewById<TextView>(R.id.userNameMessage)
         val message= itemView?.findViewById<TextView>(R.id.messageUser)
         var messagePosition: Int=0

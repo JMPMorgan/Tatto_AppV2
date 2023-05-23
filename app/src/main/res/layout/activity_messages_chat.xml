@@ -27,17 +27,17 @@
         >
 
         <EditText
-            android:id="@+id/editTextTextPersonName"
+            android:id="@+id/editTextMessage"
             android:layout_width="222dp"
             android:layout_height="47dp"
             android:layout_weight="1"
             android:background="@drawable/input_main"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="text" />
+            android:text="" />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/buttonSndMessage"
             android:layout_width="53dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"

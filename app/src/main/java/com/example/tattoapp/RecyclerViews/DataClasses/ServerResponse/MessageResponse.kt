@@ -4,6 +4,8 @@ import com.example.tattoapp.RecyclerViews.DataClasses.Message
 import com.google.gson.annotations.SerializedName
 
 data class MessageResponse(
+    @SerializedName("success")
+    var success:Boolean,
     @SerializedName("msg")
     var msg:String,
     @SerializedName("messages")
