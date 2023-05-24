@@ -6,8 +6,10 @@ import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.tattoapp.DB.SQLMessages
 import com.example.tattoapp.DB.SQLUser
 import com.example.tattoapp.RecyclerViews.DataClasses.Message
 import com.example.tattoapp.RecyclerViews.DataClasses.ServerResponse.MessageResponse
@@ -28,6 +30,7 @@ class MessagesChatActivity : AppCompatActivity() {
      lateinit var  recyclerView: RecyclerView
     var listMessages:List<Message> = listOf()
     val SQLUser= SQLUser(this)
+    val SQLMessages=SQLMessages(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,6 +44,8 @@ class MessagesChatActivity : AppCompatActivity() {
         nameSender=data[2].toString()
         lastNameSender= data[3].toString()
         idSender=data[0].toString()
+        val dataSQL= SQLMessages.getMessages()
+        Log.e("dataSQL",dataSQL.toString())
         loadMessage()
         setUpRecyclerView()
     }
@@ -60,7 +65,10 @@ class MessagesChatActivity : AppCompatActivity() {
                 call: Call<MessageResponse>,
                 response: Response<MessageResponse>
             ) {
+                SQLMessages.deleteInformationMessagew(SQLMessages.writableDatabase)
+                SQLMessages.onCreate(SQLMessages.writableDatabase)
                 listMessages= response.body()!!.messages!!
+                SQLMessages.insertMessages(listMessages)
                 adapter.add(listMessages)
                 if(response.body()!!.messages!![0].sender!!.userid!!.equals(idSender)){
                     idReceiver=response.body()!!.messages!![0].receiver!!.userid!!
@@ -70,7 +78,7 @@ class MessagesChatActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<MessageResponse>, t: Throwable) {
-                TODO("Not yet implemented")
+                showToast("Error al cargar los mensajes del servidor")
             }
 
         })
@@ -89,17 +97,21 @@ class MessagesChatActivity : AppCompatActivity() {
                 response: Response<MessageResponse>
             ) {
                 txtMessage.setText("")
-                Log.e("listMessages",listMessages.toString())
-                val prueba = listMessages.toMutableList()
-                prueba.add(listMessages.size, message)
-                adapter.add(prueba)
+                SQLMessages.newUserMessage(message)
+                val newList = listMessages.toMutableList()
+                newList.add(listMessages.size, message)
+                adapter.add(newList)
             }
 
             override fun onFailure(call: Call<MessageResponse>, t: Throwable) {
-                TODO("Not yet implemented")
+                showToast("Error al cargar los mensajes del servidor")
             }
 
         })
 
+    }
+
+    fun showToast(text:String){
+        Toast.makeText(this ,text, Toast.LENGTH_SHORT).show()
     }
 }
