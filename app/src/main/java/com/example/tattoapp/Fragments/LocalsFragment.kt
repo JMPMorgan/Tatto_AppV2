@@ -17,21 +17,10 @@ import com.example.tattoapp.Models.Local
 import com.example.tattoapp.R
 import com.example.tattoapp.RecyclerViews.LocalRecyclerView
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [LocalsFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class LocalsFragment : Fragment() {
 
     private lateinit var  binding:View
     private lateinit var adapter: LocalRecyclerView
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,6 +29,7 @@ class LocalsFragment : Fragment() {
         // Inflate the layout for this fragment
        binding=inflater.inflate(R.layout.fragment_locals, container, false)
         return binding.rootView
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -62,16 +52,18 @@ class LocalsFragment : Fragment() {
     private fun setUpLocals(){
         val local= Local()
         val SQLLocal= SQLLocal(requireContext())
-        if(isInternetConnected(requireContext())){
-//            if(!SQLLocal.isTableExists("LOCAL",SQLLocal.writableDatabase)){
-//                showToast("Locales no Encontrados.")
-//                return
-//            }
-//            val localDB=SQLLocal.getInformationLocal()
-//            adapter.add(localDB as List<com.example.tattoapp.RecyclerViews.DataClasses.Local>)
-//            return
+        if(!isInternetConnected(requireContext())){
+            if(!SQLLocal.isTableExists("LOCAL",SQLLocal.writableDatabase)){
+                showToast("Locales no Encontrados.")
+                return
+            }
+            val localDB=SQLLocal.getInformationLocal()
+            adapter.add(localDB)
+            return
         }
-        local.loadLocals(adapter)
+        SQLLocal.deleteInformationLocal()
+        SQLLocal.onCreate(SQLLocal.writableDatabase)
+        local.loadLocals(adapter,SQLLocal)
 //        adapter.add(local.locals)
     }
 

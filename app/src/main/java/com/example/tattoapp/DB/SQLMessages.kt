@@ -74,7 +74,13 @@ class SQLMessages(context: Context): SQLiteOpenHelper(context,"message",null,1) 
     fun getMessages(): List<Message> {
         val columns = arrayOf("ID","ID_RECEIVER", "ID_SENDER","CONTENT","ID_BACKEND","SITUATION","CREATIONDATE")
 
-        val cursor = this.writableDatabase.query("MESSAGES", columns, null, null, null, null, null)
+        val cursor = this.writableDatabase.query("MESSAGES",
+                    columns,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null)
 
         val messages = mutableListOf<Message>()
 

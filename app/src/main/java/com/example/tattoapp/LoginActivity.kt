@@ -99,7 +99,7 @@ class LoginActivity : AppCompatActivity() {
                                   localResponse.schedule.toString(),
                                   idUser,
                                   true,
-                                  idUser)
+                                  localResponse!!.id.toString())
                 }
                 val launch = Intent(this@LoginActivity,MainActivity::class.java)
                 startActivity(launch)

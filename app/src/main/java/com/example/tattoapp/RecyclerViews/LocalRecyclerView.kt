@@ -11,7 +11,6 @@ import android.widget.Filterable
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.tattoapp.DB.SQLLocal
 import com.example.tattoapp.PostsLocal
 import com.example.tattoapp.RecyclerViews.DataClasses.Local
 import com.example.tattoapp.R
@@ -33,14 +32,13 @@ class LocalRecyclerView (var locals:List<Local>):RecyclerView.Adapter<LocalRecyc
             .load(local.img.toString())
             .into(holder.localImage)
         holder.localPosition=position;
-        Log.e("View Selecionado",local.toString())
         return
     }
 
     override fun getItemCount(): Int= locals.size
 
 
-    fun add(localsAdd:List<Local>){
+    fun add(localsAdd: List<Local>){
         locals=localsAdd
         notifyItemInserted(locals.size)
     }

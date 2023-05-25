@@ -32,7 +32,7 @@ class PostsLocal : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_posts_local)
-        val btnSendMessage = findViewById<Button>(R.id.btnSendMessage)
+        val btnSendMessage = findViewById<Button>(R.id.btnSendMessageLocals)
         val posts= Posts()
         idLocal= getIntent().getStringExtra("LocalID").toString();
         posts.loadPostsPerLocal(this,findViewById(R.id.recyclerviewpost),idLocal)
@@ -48,8 +48,13 @@ class PostsLocal : AppCompatActivity() {
         message.message="Hola que tal quisiera informacion de tus servicios"
         val info = SQLUser.getInformation()
         val infoLocal=SQLLocal.getLocalPerUser(info[0].toString())
-        message.idsender=infoLocal[infoLocal.size-2].toString()
-        message.idreceiver=info[0].toString()
+        message.idsender=info[0].toString()
+        message.idreceiver=infoLocal[infoLocal.size-2].toString()
+        if(message.idsender==message.idreceiver){
+            showToast("No puedes enviar mensajes a tu propio Local")
+            Log.e("MESSAGE","No puedes enviar mensajes a tu propio Local")
+            return
+        }
         val result = message.sendMessage()
         result.enqueue(object : Callback<MessageResponse>{
             override fun onResponse(
