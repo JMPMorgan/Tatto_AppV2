@@ -12,6 +12,7 @@ import android.widget.*
 import com.example.tattoapp.DB.SQLUser
 import com.example.tattoapp.RecyclerViews.DataClasses.Local
 import com.example.tattoapp.RecyclerViews.DataClasses.ServerResponse.LocalResponse
+import org.json.JSONObject
 import org.w3c.dom.Text
 import java.io.ByteArrayOutputStream
 import java.util.*
@@ -31,11 +32,17 @@ class CreateLocalActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_local)
         val btnCreateLocal= findViewById<Button>(R.id.btncreateLocal)
+        val btnBack = findViewById<Button>(R.id.btn_backLocal)
 
         btnUploadImg= findViewById(R.id.btnUploadLocalImg)
 
         btnCreateLocal.setOnClickListener {
             createLocal()
+        }
+
+        btnBack.setOnClickListener {
+            val launch = Intent(this, MainActivity::class.java)
+            startActivity(launch)
         }
 
         btnUploadImg!!.setOnClickListener {
@@ -92,17 +99,22 @@ class CreateLocalActivity : AppCompatActivity() {
         local.schedule=schedule
         local.location=location
         val info = SQLUser.getInformation()
-        //TODO("Get the data of DB")
         local.userCreator=info[0].toString()
 
-
-        Log.e("LOcal",local.toString())
 
         val createLocal=local.createLocal()
 
         createLocal.enqueue(object : Callback<LocalResponse> {
             override fun onResponse(call: Call<LocalResponse>, response: Response<LocalResponse>) {
-                Log.e("Pruba",response.body().toString())
+                if(!response.isSuccessful){
+                    val jsonObject= response.errorBody()?.string()?.let{ JSONObject(it) }
+                    val msgError=jsonObject?.getString("msg").toString()
+                    showToast(msgError)
+                    return;
+                }
+                showToast("LOCAL CREADO CON EXITO");
+                val launch = Intent(this@CreateLocalActivity, MainActivity::class.java)
+                startActivity(launch)
             }
 
             override fun onFailure(call: Call<LocalResponse>, t: Throwable) {

@@ -4,10 +4,10 @@
         android:id="@+id/LocalsFragmentOptions"
         android:icon="@drawable/home"
         android:title="Tiendas"/>
-    <item
-        android:id="@+id/PruebaOptions2"
-        android:icon="@drawable/ic_star"
-        android:title="Favoritos"/>
+<!--    <item-->
+<!--        android:id="@+id/PruebaOptions2"-->
+<!--        android:icon="@drawable/ic_star"-->
+<!--        android:title="Favoritos"/>-->
     <item
         android:id="@+id/messages"
         android:icon="@drawable/ic_message"

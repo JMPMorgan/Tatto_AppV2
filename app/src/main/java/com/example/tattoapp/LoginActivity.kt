@@ -67,8 +67,6 @@ class LoginActivity : AppCompatActivity() {
                     userDataSQL.newUser(user?.name.toString(),user?.lastname.toString(),user?.username.toString(),user?.birthday.toString(),user?.email.toString(),user?.userid.toString(),user?.password.toString())
                 }
                 loadLocalInfoPerUser(user?.userid.toString())
-                Log.e("USUARIO",user.toString())
-                Log.e("USUARIO SQL UWU",data.toString())
 
                 // TODO("Falta Guardar los mensajes en la BD de la APP")
 
@@ -87,7 +85,17 @@ class LoginActivity : AppCompatActivity() {
         val result = local.getLocalPerUser()
         result.enqueue(object : Callback<LocalResponse>{
             override fun onResponse(call: Call<LocalResponse>, response: Response<LocalResponse>) {
+                if(!response.isSuccessful){
+                    val jsonObject= response.errorBody()?.string()?.let{ JSONObject(it) }
+                    val msgError=jsonObject?.getString("msg").toString()
+                    showToast(msgError)
+                    return;
+                }
                 val localResponse = response.body()!!.local
+                Log.e("LOCAL RESPONSE",localResponse.toString())
+                if(localResponse==null){
+                    return
+                }
                 val localDataSQL= SQLLocal(this@LoginActivity)
                 localDataSQL.deleteInformationLocal()
                 if(!localDataSQL.isTableExists("LOCAL",localDataSQL.writableDatabase)){

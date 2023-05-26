@@ -43,6 +43,16 @@ class SQLLocal(context: Context): SQLiteOpenHelper(context,"local",null,1) {
     }
 
     @SuppressLint("Range")
+    fun getLocalPerID(idLocal:String): String{
+        val db = this.writableDatabase
+        val cursor= db.rawQuery("SELECT * FROM LOCAL WHERE ID_BACKEND='${idLocal}' LIMIT 1",null)
+        cursor.moveToFirst()
+        val info=cursor.getString(cursor.getColumnIndex("USER"))
+        cursor.close()
+        return info
+    }
+
+    @SuppressLint("Range")
     fun getInformationLocal(): List<Local> {
         val columns = arrayOf(
             "ID",

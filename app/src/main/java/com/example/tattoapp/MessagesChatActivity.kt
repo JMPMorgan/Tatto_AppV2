@@ -15,6 +15,7 @@ import com.example.tattoapp.RecyclerViews.DataClasses.Message
 import com.example.tattoapp.RecyclerViews.DataClasses.ServerResponse.MessageResponse
 import com.example.tattoapp.RecyclerViews.DataClasses.User
 import com.example.tattoapp.RecyclerViews.MessagesRecyclerView
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -65,6 +66,12 @@ class MessagesChatActivity : AppCompatActivity() {
                 call: Call<MessageResponse>,
                 response: Response<MessageResponse>
             ) {
+                if(!response.isSuccessful){
+                    val jsonObject= response.errorBody()?.string()?.let{ JSONObject(it) }
+                    val msgError=jsonObject?.getString("msg").toString()
+                    showToast(msgError)
+                    return;
+                }
                 SQLMessages.deleteInformationMessagew(SQLMessages.writableDatabase)
                 SQLMessages.onCreate(SQLMessages.writableDatabase)
                 listMessages= response.body()!!.messages!!
@@ -96,6 +103,12 @@ class MessagesChatActivity : AppCompatActivity() {
                 call: Call<MessageResponse>,
                 response: Response<MessageResponse>
             ) {
+                if(!response.isSuccessful){
+                    val jsonObject= response.errorBody()?.string()?.let{ JSONObject(it) }
+                    val msgError=jsonObject?.getString("msg").toString()
+                    showToast(msgError)
+                    return;
+                }
                 txtMessage.setText("")
                 SQLMessages.newUserMessage(message)
                 val newList = listMessages.toMutableList()

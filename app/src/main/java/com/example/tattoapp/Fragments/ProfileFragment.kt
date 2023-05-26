@@ -53,23 +53,47 @@ class ProfileFragment : Fragment() {
         }
 
         btnCreateLocal.setOnClickListener {
-            val launch=Intent(context,CreateLocalActivity::class.java)
-            startActivity(launch)
+            if(!isInternetConnected(requireContext())){
+                showToast("No hay Conexion a Internet")
+
+            }else{
+                val launch=Intent(context,CreateLocalActivity::class.java)
+                startActivity(launch)
+            }
+
         }
 
         btnEditLocal.setOnClickListener {
-            val launch = Intent(context,EditLocalActivity::class.java)
-            startActivity(launch)
+            if(!isInternetConnected(requireContext())){
+                showToast("No hay Conexion a Internet")
+
+            }else {
+                val launch = Intent(context,EditLocalActivity::class.java)
+                startActivity(launch)
+            }
+
         }
 
         btnEditUser.setOnClickListener {
-            val launch = Intent(context,EditUserActivity::class.java)
-            startActivity(launch)
+            if(!isInternetConnected(requireContext())){
+                showToast("No hay Conexion a Internet")
+
+            }else {
+                val launch = Intent(context,EditUserActivity::class.java)
+                startActivity(launch)
+            }
+
         }
 
         btnAddPost.setOnClickListener {
-            val launch = Intent(context,UploadPostActivity::class.java)
-            startActivity(launch)
+            if(!isInternetConnected(requireContext())){
+                showToast("No hay Conexion a Internet")
+
+            }else {
+                val launch = Intent(context,UploadPostActivity::class.java)
+                startActivity(launch)
+            }
+
         }
 
         btnLogOut.setOnClickListener {

@@ -1,5 +1,9 @@
 package com.example.tattoapp
 
+import android.content.Context
+import android.content.Intent
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -17,6 +21,7 @@ import com.example.tattoapp.RecyclerViews.DataClasses.ServerResponse.LocalRespon
 import com.example.tattoapp.RecyclerViews.DataClasses.ServerResponse.MessageResponse
 import com.example.tattoapp.RecyclerViews.DataClasses.ServerResponse.PostResponse
 import com.squareup.picasso.Picasso
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -36,20 +41,30 @@ class PostsLocal : AppCompatActivity() {
         val posts= Posts()
         idLocal= getIntent().getStringExtra("LocalID").toString();
         posts.loadPostsPerLocal(this,findViewById(R.id.recyclerviewpost),idLocal)
-        getLocal()
-
         btnSendMessage.setOnClickListener {
             sendMessage()
         }
+        if(!isInternetConnected(this)){
+            showToast("No hay conexion a internet, por lo tanto no se puede conseguir la informacion del Local")
+            return
+        }
+        getLocal()
+
+
+
     }
 
     fun sendMessage() {
+        if(isInternetConnected(this )){
+            showToast("No hay conexion a internet, por lo tanto no se enviar la informacion al Local")
+            return
+        }
         val message: Message= Message()
         message.message="Hola que tal quisiera informacion de tus servicios"
         val info = SQLUser.getInformation()
-        val infoLocal=SQLLocal.getLocalPerUser(info[0].toString())
+        val infoReceiver=SQLLocal.getLocalPerID(idLocal)
         message.idsender=info[0].toString()
-        message.idreceiver=infoLocal[infoLocal.size-2].toString()
+        message.idreceiver=infoReceiver.toString()
         if(message.idsender==message.idreceiver){
             showToast("No puedes enviar mensajes a tu propio Local")
             Log.e("MESSAGE","No puedes enviar mensajes a tu propio Local")
@@ -61,7 +76,15 @@ class PostsLocal : AppCompatActivity() {
                 call: Call<MessageResponse>,
                 response: Response<MessageResponse>
             ) {
+                if(!response.isSuccessful){
+                    val jsonObject= response.errorBody()?.string()?.let{ JSONObject(it) }
+                    val msgError=jsonObject?.getString("msg").toString()
+                    showToast(msgError)
+                    return;
+                }
                showToast("Mensaje Enviado con Exito.")
+                val launch = Intent(this@PostsLocal, MainActivity::class.java)
+                startActivity(launch)
             }
 
             override fun onFailure(call: Call<MessageResponse>, t: Throwable) {
@@ -76,6 +99,12 @@ class PostsLocal : AppCompatActivity() {
         val result = local.getLocal()
         result.enqueue(object : Callback<LocalResponse>{
             override fun onResponse(call: Call<LocalResponse>, response: Response<LocalResponse>) {
+                if(!response.isSuccessful){
+                    val jsonObject= response.errorBody()?.string()?.let{ JSONObject(it) }
+                    val msgError=jsonObject?.getString("msg").toString()
+                    showToast(msgError)
+                    return;
+                }
                 val imageLocal = findViewById<ImageView>(R.id.imageLocal)
                 val titleLocal = findViewById<TextView>(R.id.title_local)
                 Picasso.get()
@@ -95,5 +124,14 @@ class PostsLocal : AppCompatActivity() {
     fun showToast(text:String){
         Toast.makeText(this ,text, Toast.LENGTH_SHORT).show()
     }
+
+    fun isInternetConnected(context: Context): Boolean {
+        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val network = connectivityManager.activeNetwork
+        val networkCapabilities = connectivityManager.getNetworkCapabilities(network)
+
+        return networkCapabilities?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) == true
+    }
+
 }
 

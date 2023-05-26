@@ -152,7 +152,7 @@
 
 
     <Button
-        android:id="@+id/btn_back"
+        android:id="@+id/btn_backLocal"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="151dp"
         android:layout_height="50dp"

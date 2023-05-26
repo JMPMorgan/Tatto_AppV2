@@ -100,6 +100,8 @@ class EditUserActivity : AppCompatActivity() {
                 }
                 SQLUser.editUser(user.name!!,user.lastname!!,user.userid!!)
                 showToast("Usuario Editado con Exito.")
+                val launch = Intent(this@EditUserActivity, MainActivity::class.java)
+                startActivity(launch)
             }
 
             override fun onFailure(call: Call<UserResponse>, t: Throwable) {
@@ -116,6 +118,12 @@ class EditUserActivity : AppCompatActivity() {
         val result = user.getUser(user.userid!!)
         result.enqueue(object : Callback<UserResponse>{
             override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
+                if(!response.isSuccessful){
+                    val jsonObject= response.errorBody()?.string()?.let{ JSONObject(it) }
+                    val msgError=jsonObject?.getString("msg").toString()
+                    showToast(msgError)
+                    return;
+                }
                 inputName.setText(response.body()!!.user!!.name)
                 inputLastName.setText(response.body()!!.user!!.lastname)
 

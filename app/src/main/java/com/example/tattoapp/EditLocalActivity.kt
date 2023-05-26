@@ -8,9 +8,11 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
 import android.widget.*
+import com.example.tattoapp.DB.SQLUser
 import com.example.tattoapp.RecyclerViews.DataClasses.Local
 import com.example.tattoapp.RecyclerViews.DataClasses.ServerResponse.LocalResponse
 import com.squareup.picasso.Picasso
+import org.json.JSONObject
 import org.w3c.dom.Text
 import retrofit2.Call
 import retrofit2.Callback
@@ -57,12 +59,18 @@ class EditLocalActivity : AppCompatActivity() {
     }
 
     fun getInfoLocal(){
-        local.userCreator="641b619dac5f89b8ad46f7fa"
-        // TODO("Cambiar por BD")
+        val SQLUser=SQLUser(this)
+        val info = SQLUser.getInformation()
+        local.userCreator=info[0].toString()
         val response= local.getLocalPerUser()
         response.enqueue(object : Callback<LocalResponse> {
             override fun onResponse(call: Call<LocalResponse>, response: Response<LocalResponse>) {
-                Log.e("Pruba",response.body().toString())
+                if(!response.isSuccessful){
+                    val jsonObject= response.errorBody()?.string()?.let{ JSONObject(it) }
+                    val msgError=jsonObject?.getString("msg").toString()
+                    showToast(msgError)
+                    return;
+                }
                 val localResponse=response.body()?.local
                 local.img=localResponse!!.img
                 local.id=localResponse!!.id
@@ -121,6 +129,8 @@ class EditLocalActivity : AppCompatActivity() {
         response.enqueue(object : Callback<LocalResponse>{
             override fun onResponse(call: Call<LocalResponse>, response: Response<LocalResponse>) {
                 Log.e("EDICION DE LOCAL", response.body().toString())
+                val launch = Intent(this@EditLocalActivity, MainActivity::class.java)
+                startActivity(launch)
             }
 
             override fun onFailure(call: Call<LocalResponse>, t: Throwable) {
