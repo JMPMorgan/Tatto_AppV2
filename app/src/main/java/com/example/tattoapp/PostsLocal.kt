@@ -63,6 +63,10 @@ class PostsLocal : AppCompatActivity() {
         message.message="Hola que tal quisiera informacion de tus servicios"
         val info = SQLUser.getInformation()
         val infoReceiver=SQLLocal.getLocalPerID(idLocal)
+        if(info.isEmpty()){
+            showToast("No puede enviar mensaje sin hacer Log In")
+            return
+        }
         message.idsender=info[0].toString()
         message.idreceiver=infoReceiver.toString()
         if(message.idsender==message.idreceiver){

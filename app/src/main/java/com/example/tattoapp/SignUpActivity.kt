@@ -102,6 +102,16 @@ class SignUpActivity : AppCompatActivity(),DateSelected {
             this.showToast("El campo Username es requerido ")
             return
         }
+
+        if(user.birthday ==null){
+            this.showToast("La fecha de cumpleaños es requerido.")
+            return
+        }
+
+        if(user.file == null){
+            this.showToast("Imagen de Perfil es requerida ")
+            return
+        }
         user.name=name
         user.lastname=lastName
         user.email=email
