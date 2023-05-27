@@ -105,18 +105,22 @@ class EditLocalActivity : AppCompatActivity() {
 
         if(valueSchedule.isEmpty()){
             showToast("El valor de horarios es requerido")
+            return
         }
 
         if(valueWeekdays.isEmpty()){
             showToast("El valor de la semana es requerido")
+            return
         }
 
         if(valueLocation.isEmpty()){
             showToast("El valor de la localizacion  es requerido")
+            return
         }
 
-        if(local.img!!.isEmpty()){
+        if(local.img == null){
             showToast("La imagen es requerida")
+            return
         }
 
         local.schedule=valueSchedule

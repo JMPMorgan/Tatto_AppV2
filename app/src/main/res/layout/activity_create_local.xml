@@ -117,14 +117,14 @@
         android:id="@+id/btnUploadLocalImg"
         android:layout_width="328dp"
         android:layout_height="45dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="44dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="16dp"
         android:backgroundTint="@color/purple_800"
         android:backgroundTintMode="add"
         android:text="Upload Image"
         android:textAllCaps="false"
         android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/inputLocation" />
 
     <TextView
@@ -136,32 +136,32 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnUploadLocalImg" />
 
+
     <Button
         android:id="@+id/btncreateLocal"
         android:layout_width="149dp"
         android:layout_height="50dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="48dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="24dp"
         android:backgroundTint="@color/purple_800"
         android:backgroundTintMode="add"
         android:text="Create Local"
         android:textAllCaps="false"
         android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btn_backLocal"
         app:layout_constraintTop_toBottomOf="@+id/btnUploadLocalImg" />
-
 
     <Button
         android:id="@+id/btn_backLocal"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="151dp"
         android:layout_height="50dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="28dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="24dp"
         android:text="Back"
         android:textAllCaps="false"
         android:textColor="@color/purple_800"
-        app:layout_constraintEnd_toStartOf="@+id/btncreateLocal"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnUploadLocalImg"
         app:strokeColor="@color/purple_800"
         app:strokeWidth="2dp" />

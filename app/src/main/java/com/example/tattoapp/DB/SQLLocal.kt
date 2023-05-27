@@ -156,6 +156,7 @@ class SQLLocal(context: Context): SQLiteOpenHelper(context,"local",null,1) {
                 put("USER",local.userCreator)
                 put("STATUS",local.status)
             }
+            Log.e("CONTENT",contentValues.toString())
             this.writableDatabase.insert("LOCAL",null,contentValues)
         }
     }

@@ -58,9 +58,11 @@ class LocalsFragment : Fragment() {
                 return
             }
             val localDB=SQLLocal.getInformationLocal()
+            Log.e("LOCAL",localDB.toString())
             adapter.add(localDB)
             return
         }
+        Log.e("HOLA","HOLAA")
         SQLLocal.deleteInformationLocal()
         SQLLocal.onCreate(SQLLocal.writableDatabase)
         local.loadLocals(adapter,SQLLocal)

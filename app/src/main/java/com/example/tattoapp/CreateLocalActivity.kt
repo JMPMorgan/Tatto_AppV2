@@ -80,13 +80,13 @@ class CreateLocalActivity : AppCompatActivity() {
         }
 
         if(schedule.isEmpty()){
-            showToast("El Nombre del local es requerido")
+            showToast("El Horario del local es requerido")
             return
 
         }
 
         if(weekdays.isEmpty()){
-            showToast("El Nombre del local es requerido")
+            showToast("Los dias de la semana del local son requerido")
             return
 
         }
@@ -97,8 +97,8 @@ class CreateLocalActivity : AppCompatActivity() {
 
         }
 
-        if(local.img.toString().isEmpty()){
-            showToast("El Nombre del local es requerido")
+        if(local.img == null){
+            showToast("La imagen del local es requerido")
             return
 
         }

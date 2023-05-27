@@ -2,14 +2,13 @@ package com.example.tattoapp.RecyclerViews
 
 import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Filter
-import android.widget.Filterable
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tattoapp.PostsLocal
 import com.example.tattoapp.RecyclerViews.DataClasses.Local
@@ -63,11 +62,28 @@ class LocalRecyclerView (var locals:List<Local>):RecyclerView.Adapter<LocalRecyc
         override fun onClick(v: View?) {
             when(v!!.id){
                 R.id.local_info->{
-                    val activity = Intent(context,PostsLocal::class.java)
-                    activity.putExtra("LocalID",this.localID)
-                    context.startActivity(activity)
+                    if(isInternetConnected(context)){
+                        val activity = Intent(context,PostsLocal::class.java)
+                        activity.putExtra("LocalID",this.localID)
+                        context.startActivity(activity)
+                        return
+                    }
+                    showToast("No se puede acceder a la informacion, no hay internet")
+
                 }
             }
+        }
+
+        fun isInternetConnected(context: Context): Boolean {
+            val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+            val network = connectivityManager.activeNetwork
+            val networkCapabilities = connectivityManager.getNetworkCapabilities(network)
+
+            return networkCapabilities?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) == true
+        }
+
+        fun showToast(text:String){
+            Toast.makeText(context ,text, Toast.LENGTH_SHORT).show()
         }
 
     }
