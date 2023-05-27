@@ -42,8 +42,9 @@ class MessagesChatActivity : AppCompatActivity() {
             sendMessage()
         }
         val data = SQLUser.getInformation()
-        nameSender=data[2].toString()
-        lastNameSender= data[3].toString()
+        Log.e("DATAAAAAAAAAA",data.toString())
+        nameSender=data[1].toString()
+        lastNameSender= data[2].toString()
         idSender=data[0].toString()
         val dataSQL= SQLMessages.getMessages()
         Log.e("dataSQL",dataSQL.toString())

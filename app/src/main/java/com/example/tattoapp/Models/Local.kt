@@ -17,7 +17,6 @@ class Local {
         response.enqueue(object : Callback<LocalResponse>{
             override fun onResponse(call: Call<LocalResponse>, response: Response<LocalResponse>) {
                 locals=response.body()?.locals!!
-                Log.e("PRUEBASA",locals.toString())
                 localRecyclerView.add(locals)
                 SQLLocal.insertLocals(locals)
             }

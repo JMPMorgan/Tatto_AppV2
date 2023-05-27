@@ -55,7 +55,7 @@ class PostsLocal : AppCompatActivity() {
     }
 
     fun sendMessage() {
-        if(isInternetConnected(this )){
+        if(!isInternetConnected(this )){
             showToast("No hay conexion a internet, por lo tanto no se enviar la informacion al Local")
             return
         }
@@ -67,7 +67,6 @@ class PostsLocal : AppCompatActivity() {
         message.idreceiver=infoReceiver.toString()
         if(message.idsender==message.idreceiver){
             showToast("No puedes enviar mensajes a tu propio Local")
-            Log.e("MESSAGE","No puedes enviar mensajes a tu propio Local")
             return
         }
         val result = message.sendMessage()
@@ -105,12 +104,16 @@ class PostsLocal : AppCompatActivity() {
                     showToast(msgError)
                     return;
                 }
+                val description = findViewById<TextView>(R.id.description_post)
                 val imageLocal = findViewById<ImageView>(R.id.imageLocal)
                 val titleLocal = findViewById<TextView>(R.id.title_local)
                 Picasso.get()
                     .load(response.body()!!.local!!.img.toString())
                     .into(imageLocal)
                 titleLocal.setText(response.body()!!.local!!.name.toString())
+                description.text="-Localizacion:${response.body()!!.local!!.location} " +
+                        "-Dias de la Semana:${response.body()!!.local!!.weekdays} " +
+                        "-Horario:${response.body()!!.local!!.schedule}"
             }
 
             override fun onFailure(call: Call<LocalResponse>, t: Throwable) {

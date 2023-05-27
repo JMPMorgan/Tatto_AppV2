@@ -14,6 +14,8 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.fragment.app.commit
+import androidx.fragment.app.replace
 import com.example.tattoapp.*
 import com.example.tattoapp.DB.SQLUser
 import com.example.tattoapp.RecyclerViews.DataClasses.ServerResponse.UserResponse
@@ -39,18 +41,18 @@ class ProfileFragment : Fragment() {
     ): View? {
 
         binding=inflater.inflate(R.layout.fragment_profile,container,false)
-        val button=binding!!.findViewById<Button>(R.id.btnRegisterUser)
+//        val button=binding!!.findViewById<Button>(R.id.btnRegisterUser)
         val btnCreateLocal = binding!!.findViewById<Button>(R.id.btnCreateLocal)
         val btnEditLocal=binding!!.findViewById<Button>(R.id.btnEditLocal)
         val btnEditUser = binding!!.findViewById<Button>(R.id.btnEditUser)
         val btnAddPost= binding!!.findViewById<Button>(R.id.btnAddPost)
         val btnLogOut = binding!!.findViewById<Button>(R.id.btnLogout)
         btnLogOut.visibility=View.GONE
-        button.setOnClickListener {
-            val launch = Intent(context,LoginActivity::class.java)
-            startActivity(launch)
-//            validateNewUser()
-        }
+//        button.setOnClickListener {
+//            val launch = Intent(context,LoginActivity::class.java)
+//            startActivity(launch)
+////            validateNewUser()
+//        }
 
         btnCreateLocal.setOnClickListener {
             if(!isInternetConnected(requireContext())){
@@ -117,7 +119,6 @@ class ProfileFragment : Fragment() {
         val SQLUser: SQLUser = SQLUser(requireContext())
         val info = SQLUser.getInformation()
         if(!info.isEmpty() && isInternetConnected(requireContext())){
-            Log.e("HOLAAAA","AQUIIIIII")
             uuidUser= info[0].toString()
             loadInfoUser()
             return
@@ -128,13 +129,12 @@ class ProfileFragment : Fragment() {
             val btnEditUser = binding!!.findViewById<Button>(R.id.btnEditUser)
             val btnAddPost= binding!!.findViewById<Button>(R.id.btnAddPost)
             val btnLogOut = binding!!.findViewById<Button>(R.id.btnLogout)
-            val btnKeys = binding!!.findViewById<Button>(R.id.btnKeys)
             btnCreateLocal.visibility=View.GONE
             btnEditLocal.visibility=View.GONE
             btnEditUser.visibility=View.GONE
             btnAddPost.visibility=View.GONE
             btnLogOut.visibility=View.GONE
-            btnKeys.visibility=View.GONE
+//            btnKeys.visibility=View.GONE
             showToast("No hay forma de conectar a internet ni recoletar informacion")
             return
         }
@@ -159,8 +159,6 @@ class ProfileFragment : Fragment() {
         response.enqueue(
             object : Callback<UserResponse> {
                 override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
-                    Log.e("Prueba",response.toString())
-                    Log.e("Prueba2",response.body().toString())
                     val btnEditLocal=binding!!.findViewById<Button>(R.id.btnEditLocal)
                     val btnAddPost= binding!!.findViewById<Button>(R.id.btnAddPost)
                     val btnLogOut = binding!!.findViewById<Button>(R.id.btnLogout)
@@ -185,7 +183,6 @@ class ProfileFragment : Fragment() {
                     btnLogOut.visibility=View.VISIBLE
                     if(user!!.hasLocal){
                         val btnCreateLocal=binding!!.findViewById<Button>(R.id.btnCreateLocal)
-                        Log.e("Hola","Hola")
                         btnCreateLocal.visibility=View.GONE
                         btnEditLocal.visibility=View.VISIBLE
                         btnAddPost.visibility=View.VISIBLE
@@ -196,7 +193,6 @@ class ProfileFragment : Fragment() {
                 }
 
                 override fun onFailure(call: Call<UserResponse>, t: Throwable) {
-                    Log.e("Hola","Hola")
                     hasConexion=false
 
                 }
@@ -211,48 +207,6 @@ class ProfileFragment : Fragment() {
 
         return networkCapabilities?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) == true
     }
-
-//    fun validateNewUser(){
-//        val name=binding.findViewById<TextView>(R.id.etNombreUsuario).text.toString()
-//        val lastName= binding.findViewById<TextView>(R.id.inputLastName).text.toString()
-//        val password = binding.findViewById<TextView>(R.id.inputPassword).text.toString()
-//        val confirmPassword= binding.findViewById<TextView>(R.id.inputCPassword).text.toString()
-//        val email= binding.findViewById<TextView>(R.id.inputEmail).text.toString()
-//        val username= binding.findViewById<TextView>(R.id.inputUsername).text.toString()
-//
-//        if(name.isEmpty()){
-//            Toast.makeText(binding.context,"Nombre de Usuario es requerido",Toast.LENGTH_SHORT).show()
-//            return
-//        }
-//
-//        if(lastName.isEmpty()){
-//            Toast.makeText(binding.context,"Apellido de Usuario es requerido",Toast.LENGTH_SHORT).show()
-//            return
-//        }
-//
-//        if(password.isEmpty()){
-//            Toast.makeText(binding.context,"Password del Usuario es requerido",Toast.LENGTH_SHORT).show()
-//            return
-//        }
-//
-//        if(password != confirmPassword){
-//            Toast.makeText(binding.context,"Contraseñas no Coinciden",Toast.LENGTH_SHORT).show()
-//            return
-//        }
-//        if(email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()){
-//            Toast.makeText(binding.context,"El campo Email es requerido y debe ser un email valido",Toast.LENGTH_SHORT).show()
-//            return
-//        }
-//
-//
-//        if(username.isEmpty()){
-//            Toast.makeText(binding.context,"El campo Username es requerido ",Toast.LENGTH_SHORT).show()
-//            return
-//        }
-//
-//        val user = User(null,name,lastName,email,password,true,null,username,null,null)
-//        newUser(user)
-//    }
 
 
      fun newUser(user:User){
@@ -276,7 +230,11 @@ class ProfileFragment : Fragment() {
     fun logOut(){
         val SQLUser: SQLUser = SQLUser(requireContext())
         SQLUser.deleteInformation()
-        reloadView()
+        requireActivity().supportFragmentManager.commit {
+            replace<LocalsFragment> (R.id.fragment_container)
+            setReorderingAllowed(true)
+            addToBackStack("replacement")
+        }
     }
 
     fun reloadView() {

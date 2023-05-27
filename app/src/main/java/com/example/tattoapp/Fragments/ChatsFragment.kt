@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tattoapp.DB.SQLUser
@@ -58,6 +59,7 @@ class ChatsFragment : Fragment() {
         val SQLUser=SQLUser(requireContext())
         val data = SQLUser.getInformation()
         if(data.isEmpty()){
+            showToast("Necesita hacer Login con un usuario para acceder a las conversaciones.")
             return
         }
         val chats=Chats()
@@ -65,7 +67,6 @@ class ChatsFragment : Fragment() {
         result.enqueue(object :Callback<ChatsResponse>{
             override fun onResponse(call: Call<ChatsResponse>, response: Response<ChatsResponse>) {
                 listChats=response.body()!!.chats!!
-                Log.e("CHATS AAAA",listChats.toString())
                 adapter.add(listChats)
             }
 
@@ -74,6 +75,11 @@ class ChatsFragment : Fragment() {
             }
 
         })
+    }
+
+
+    fun showToast(text:String){
+        Toast.makeText(requireContext() ,text, Toast.LENGTH_SHORT).show()
     }
 
 }

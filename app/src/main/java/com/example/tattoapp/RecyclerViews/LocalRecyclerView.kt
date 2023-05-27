@@ -26,6 +26,9 @@ class LocalRecyclerView (var locals:List<Local>):RecyclerView.Adapter<LocalRecyc
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val local = locals.get(position)
+        holder.localDescription!!.text="-Localizacion: ${local.location} " +
+                "-Dias de la Semana: ${local.weekdays} " +
+                "-Horario:${local.schedule}"
         holder.localName!!.text=local.name
         holder.localID=local.id.toString()
         Picasso.get()

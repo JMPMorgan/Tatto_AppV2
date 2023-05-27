@@ -76,22 +76,31 @@ class CreateLocalActivity : AppCompatActivity() {
 
         if(localName.isEmpty()){
             showToast("El Nombre del local es requerido")
+            return
         }
 
         if(schedule.isEmpty()){
             showToast("El Nombre del local es requerido")
+            return
+
         }
 
         if(weekdays.isEmpty()){
             showToast("El Nombre del local es requerido")
+            return
+
         }
 
         if(location.isEmpty()){
             showToast("Locacion del Local es requerida")
+            return
+
         }
 
         if(local.img.toString().isEmpty()){
             showToast("El Nombre del local es requerido")
+            return
+
         }
 
         local.name=localName

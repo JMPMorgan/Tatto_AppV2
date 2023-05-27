@@ -61,6 +61,7 @@ class LoginActivity : AppCompatActivity() {
                 }
                 val user =response.body()?.user
                 val userDataSQL=SQLUser(this@LoginActivity)
+                userDataSQL.deleteInformation()
                 val data = userDataSQL.getInformation()
                 if(data.isEmpty()){
                     userDataSQL.onCreate(userDataSQL.writableDatabase)
@@ -92,8 +93,9 @@ class LoginActivity : AppCompatActivity() {
                     return;
                 }
                 val localResponse = response.body()!!.local
-                Log.e("LOCAL RESPONSE",localResponse.toString())
                 if(localResponse==null){
+                    val launch = Intent(this@LoginActivity,MainActivity::class.java)
+                    startActivity(launch)
                     return
                 }
                 val localDataSQL= SQLLocal(this@LoginActivity)

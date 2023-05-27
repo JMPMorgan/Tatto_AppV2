@@ -83,7 +83,7 @@ class UploadPostActivity : AppCompatActivity() {
             return;
         }
 
-        if(post.img!!.isEmpty()){
+        if(post.img == null){
             showToast("Debe seleccioanr una imagen")
             return
         }

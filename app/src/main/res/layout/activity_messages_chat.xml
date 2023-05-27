@@ -41,6 +41,9 @@
             android:layout_width="53dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:backgroundTint="@color/purple_800"
+            android:textColor="@color/white"
+
             android:text="Enviar" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
